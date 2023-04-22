@@ -1,5 +1,9 @@
 package mta.course.java.stepper.dd.api;
-
+/**
+ * this abstract class implemnt dataDefinition in order to make it eaiser for other inhirience classes that
+ * in order to manage all the small details.
+ * set the
+ * */
 public abstract class AbstractDataDefinition implements DataDefinition {
 
     private final String name;
