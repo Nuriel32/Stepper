@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+/** This class contain  the neccesry data that for relation , in other words ,descirbe the defiention of the data.
+ * **/
 
 public class RelationData {
 

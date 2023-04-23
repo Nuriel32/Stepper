@@ -2,7 +2,10 @@ package mta.course.java.stepper.step.api;
 
 import java.util.ArrayList;
 import java.util.List;
-
+/**
+ * contain all of the standard data for steps,
+ *
+ * **/
 public abstract class AbstractStepDefinition implements StepDefinition {
 
     private final String stepName;
