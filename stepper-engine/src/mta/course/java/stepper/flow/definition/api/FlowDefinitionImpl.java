@@ -4,7 +4,11 @@ import mta.course.java.stepper.step.api.DataDefinitionDeclaration;
 
 import java.util.ArrayList;
 import java.util.List;
-
+/**
+ * This class implement the interface FlowDefinition,
+ * contain all the data that the  that the flow needs,which means here is the full defiention of the flow
+ * also provide all service methods for over who wants to define flow in the system.
+ * **/
 public class FlowDefinitionImpl implements FlowDefinition {
 
     private final String name;
