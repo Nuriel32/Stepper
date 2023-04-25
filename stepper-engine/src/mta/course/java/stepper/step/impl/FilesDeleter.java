@@ -12,8 +12,8 @@ public class FilesDeleter extends AbstractStepDefinition {
     public FilesDeleter(){
         super("Files_Deleter", false);
         addInput(new DataDefinitionDeclarationImpl("FILES_LIST", DataNecessity.MANDATORY, "Files to delete", DataDefinitionRegistry.FILE));
-        addOutput(new DataDefinitionDeclarationImpl("DELETED_LIST", DataNecessity.NA, "Files failed to be deleted", DataDefinitionRegistry.STRING));
-        addOutput(new DataDefinitionDeclarationImpl("DELETION_STATS", DataNecessity.NA, "Deletion  summary results",DataDefinitionRegistry.MAPPING));
+        addInput(new DataDefinitionDeclarationImpl("DELETED_LIST", DataNecessity.NA, "Files failed to be deleted", DataDefinitionRegistry.STRING));
+        addInput(new DataDefinitionDeclarationImpl("DELETION_STATS", DataNecessity.NA, "Deletion  summary results",DataDefinitionRegistry.MAPPING));
     }
 
 

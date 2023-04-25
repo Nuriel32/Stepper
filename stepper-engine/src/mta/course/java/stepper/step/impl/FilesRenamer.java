@@ -12,7 +12,11 @@ public class FilesRenamer extends AbstractStepDefinition {
    {
        super("Files_Renamer", false);
        addInput(new DataDefinitionDeclarationImpl("FILES_TO_RENAME", DataNecessity.MANDATORY, "Files to rename", DataDefinitionRegistry.LIST));
+       addInput(new DataDefinitionDeclarationImpl("PREFIX", DataNecessity.OPTIONAL, "Files to rename", DataDefinitionRegistry.STRING));
+       addInput(new DataDefinitionDeclarationImpl("SUFFIX", DataNecessity.OPTIONAL, "Append this suffix", DataDefinitionRegistry.STRING));
 
+
+       addOutput(new DataDefinitionDeclarationImpl("DETAILS", DataNecessity.NA, "Full Person Details", DataDefinitionRegistry.STRING));
 
    }
 
