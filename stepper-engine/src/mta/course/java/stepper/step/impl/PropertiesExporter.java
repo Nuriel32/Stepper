@@ -7,14 +7,15 @@ import mta.course.java.stepper.step.api.DataDefinitionDeclarationImpl;
 import mta.course.java.stepper.step.api.DataNecessity;
 import mta.course.java.stepper.step.api.StepResult;
 
-public class CSVExporter extends AbstractStepDefinition {
-    public CSVExporter()
-    {
-        super("CSV_EXPORTER", true);
+public class PropertiesExporter extends AbstractStepDefinition {
+    public PropertiesExporter(){
+        super("Properties Exporter", true);
         addInput(new DataDefinitionDeclarationImpl("SOURCE", DataNecessity.MANDATORY, "Source data", DataDefinitionRegistry.RELATION));
-        addOutput(new DataDefinitionDeclarationImpl("RESULT", DataNecessity.MANDATORY, "CSV exportResult", DataDefinitionRegistry.STRING));
-    }
 
+        addOutput(new DataDefinitionDeclarationImpl("RESULT", DataNecessity.MANDATORY, "Properties export result", DataDefinitionRegistry.STRING));
+
+
+    }
     @Override
     public StepResult invoke(StepExecutionContext context) {
         return null;

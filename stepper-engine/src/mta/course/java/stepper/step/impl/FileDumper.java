@@ -7,13 +7,17 @@ import mta.course.java.stepper.step.api.DataDefinitionDeclarationImpl;
 import mta.course.java.stepper.step.api.DataNecessity;
 import mta.course.java.stepper.step.api.StepResult;
 
-public class CSVExporter extends AbstractStepDefinition {
-    public CSVExporter()
+public class FileDumper extends AbstractStepDefinition {
+
+    public FileDumper()
     {
-        super("CSV_EXPORTER", true);
-        addInput(new DataDefinitionDeclarationImpl("SOURCE", DataNecessity.MANDATORY, "Source data", DataDefinitionRegistry.RELATION));
-        addOutput(new DataDefinitionDeclarationImpl("RESULT", DataNecessity.MANDATORY, "CSV exportResult", DataDefinitionRegistry.STRING));
+        super("File_Dumper", true);
+        addInput(new DataDefinitionDeclarationImpl("CONTENT", DataNecessity.MANDATORY, "Content", DataDefinitionRegistry.STRING));
+        addInput(new DataDefinitionDeclarationImpl("FILE_NAME", DataNecessity.MANDATORY, "Target file path", DataDefinitionRegistry.STRING));
+
+        addOutput(new DataDefinitionDeclarationImpl("RESULT", DataNecessity.MANDATORY, "File Creation Result", DataDefinitionRegistry.STRING));
     }
+
 
     @Override
     public StepResult invoke(StepExecutionContext context) {
