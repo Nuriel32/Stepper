@@ -23,6 +23,7 @@ public class CollectFilesInFolder extends AbstractStepDefinition {
     }
 
 
+    @Override
     public StepResult invoke(StepExecutionContext context) {
         String folderName = context.getDataValue("Folder_Name", String.class);
         String filter = context.getDataValue("Filter", String.class);
@@ -31,7 +32,7 @@ public class CollectFilesInFolder extends AbstractStepDefinition {
         File[] files = folder.listFiles((dir, name) -> filter == null || name.endsWith(filter));
 
         if (files != null) {
-            context.storeDataValue("File_List", Arrays.stream(files).map(FileData::new).collect(Collectors.toList()));
+            context.storeDataValue("File_List", Arrays.asList(files));
             context.storeDataValue("Total_Found", (double) files.length);
         } else {
             context.storeDataValue("File_List", Collections.emptyList());
@@ -40,6 +41,7 @@ public class CollectFilesInFolder extends AbstractStepDefinition {
 
         return StepResult.SUCCESS;
     }
+
 
 
 }

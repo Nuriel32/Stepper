@@ -7,10 +7,13 @@ import mta.course.java.stepper.step.api.DataDefinitionDeclarationImpl;
 import mta.course.java.stepper.step.api.DataNecessity;
 import mta.course.java.stepper.step.api.StepResult;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+
 public class FileDumper extends AbstractStepDefinition {
 
-    public FileDumper()
-    {
+    public FileDumper() {
         super("File_Dumper", true);
         addInput(new DataDefinitionDeclarationImpl("CONTENT", DataNecessity.MANDATORY, "Content", DataDefinitionRegistry.STRING));
         addInput(new DataDefinitionDeclarationImpl("FILE_NAME", DataNecessity.MANDATORY, "Target file path", DataDefinitionRegistry.STRING));
@@ -21,6 +24,18 @@ public class FileDumper extends AbstractStepDefinition {
 
     @Override
     public StepResult invoke(StepExecutionContext context) {
-        return null;
+        String content = context.getDataValue("CONTENT", String.class);
+        String fileName = context.getDataValue("FILE_NAME", String.class);
+
+        try {
+            Files.write(Paths.get(fileName), content.getBytes());
+            context.storeDataValue("RESULT", "File created successfully");
+            return StepResult.SUCCESS;
+        } catch (IOException e) {
+            context.storeDataValue("RESULT", "File creation failed: " + e.getMessage());
+            return StepResult.FAILURE;
+        }
     }
+
 }
+

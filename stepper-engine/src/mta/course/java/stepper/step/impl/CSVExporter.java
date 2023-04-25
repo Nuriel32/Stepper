@@ -17,6 +17,22 @@ public class CSVExporter extends AbstractStepDefinition {
 
     @Override
     public StepResult invoke(StepExecutionContext context) {
-        return null;
+        String folderName = context.getDataValue("Folder_Name", String.class);
+        String filter = context.getDataValue("Filter", String.class);
+        File folder = new File(folderName);
+
+        File[] files = folder.listFiles((dir, name) -> filter == null || name.endsWith(filter));
+
+        if (files != null) {
+            context.storeDataValue("File_List", Arrays.asList(files));
+            context.storeDataValue("Total_Found", (double) files.length);
+        } else {
+            context.storeDataValue("File_List", Collections.emptyList());
+            context.storeDataValue("Total_Found", 0.0);
+        }
+
+        return StepResult.SUCCESS;
     }
+
+
 }
