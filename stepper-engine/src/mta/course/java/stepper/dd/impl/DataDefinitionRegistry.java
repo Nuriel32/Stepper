@@ -3,6 +3,7 @@ package mta.course.java.stepper.dd.impl;
 import mta.course.java.stepper.dd.api.DataDefinition;
 import mta.course.java.stepper.dd.impl.File.FileDataDeffinition;
 import mta.course.java.stepper.dd.impl.List.ListDataDefinition;
+import mta.course.java.stepper.dd.impl.Mapping.MappingDataDefinition;
 import mta.course.java.stepper.dd.impl.number.DoubleDataDefinition;
 import mta.course.java.stepper.dd.impl.relation.RelationDataDefinition;
 import mta.course.java.stepper.dd.impl.string.StringDataDefinition;
@@ -12,7 +13,8 @@ public enum DataDefinitionRegistry implements DataDefinition{
     DOUBLE(new DoubleDataDefinition()),
     RELATION(new RelationDataDefinition()),
     FILE(new FileDataDeffinition()),
-    LIST(new ListDataDefinition())
+    LIST(new ListDataDefinition()),
+    MAPPING(new MappingDataDefinition())
     ;
 
     DataDefinitionRegistry(DataDefinition dataDefinition) {
