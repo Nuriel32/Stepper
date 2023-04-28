@@ -68,4 +68,11 @@ public class STStepper {
         this.stFlows = value;
     }
 
+    public STFlows getStFlows() {
+        return stFlows;
+    }
+
+    public void setStFlows(STFlows stFlows) {
+        this.stFlows = stFlows;
+    }
 }

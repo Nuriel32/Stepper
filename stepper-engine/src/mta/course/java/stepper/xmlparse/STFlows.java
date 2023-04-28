@@ -43,6 +43,11 @@ import javax.xml.bind.annotation.XmlType;
 @XmlRootElement(name = "ST-Flows")
 public class STFlows {
 
+
+    public void setStFlow(List<STFlow> stFlow) {
+        this.stFlow = stFlow;
+    }
+
     @XmlElement(name = "ST-Flow", required = true)
     protected List<STFlow> stFlow;
 
@@ -73,6 +78,9 @@ public class STFlows {
             stFlow = new ArrayList<STFlow>();
         }
         return this.stFlow;
+    }
+    public List<STFlow> getStFlow() {
+        return stFlow;
     }
 
 }

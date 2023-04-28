@@ -200,4 +200,43 @@ public class STFlow {
         this.name = value;
     }
 
+    public String getStFlowOutput() {
+        return stFlowOutput;
+    }
+
+    public void setStFlowOutput(String stFlowOutput) {
+        this.stFlowOutput = stFlowOutput;
+    }
+
+    public STCustomMappings getStCustomMappings() {
+        return stCustomMappings;
+    }
+
+    public void setStCustomMappings(STCustomMappings stCustomMappings) {
+        this.stCustomMappings = stCustomMappings;
+    }
+
+    public STFlowLevelAliasing getStFlowLevelAliasing() {
+        return stFlowLevelAliasing;
+    }
+
+    public void setStFlowLevelAliasing(STFlowLevelAliasing stFlowLevelAliasing) {
+        this.stFlowLevelAliasing = stFlowLevelAliasing;
+    }
+
+    public STStepsInFlow getStStepsInFlow() {
+        return stStepsInFlow;
+    }
+
+    public void setStStepsInFlow(STStepsInFlow stStepsInFlow) {
+        this.stStepsInFlow = stStepsInFlow;
+    }
+
+    public String getStFlowDescription() {
+        return stFlowDescription;
+    }
+
+    public void setStFlowDescription(String stFlowDescription) {
+        this.stFlowDescription = stFlowDescription;
+    }
 }

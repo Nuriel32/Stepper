@@ -118,4 +118,7 @@ public class STStepInFlow {
         this.continueIfFailing = value;
     }
 
+    public Boolean getContinueIfFailing() {
+        return continueIfFailing;
+    }
 }

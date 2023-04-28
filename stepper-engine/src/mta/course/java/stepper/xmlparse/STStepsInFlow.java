@@ -75,4 +75,11 @@ public class STStepsInFlow {
         return this.stStepInFlow;
     }
 
+    public List<STStepInFlow> getStStepInFlow() {
+        return stStepInFlow;
+    }
+
+    public void setStStepInFlow(List<STStepInFlow> stStepInFlow) {
+        this.stStepInFlow = stStepInFlow;
+    }
 }

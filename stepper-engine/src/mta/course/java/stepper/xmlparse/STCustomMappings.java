@@ -75,4 +75,11 @@ public class STCustomMappings {
         return this.stCustomMapping;
     }
 
+    public List<STCustomMapping> getStCustomMapping() {
+        return stCustomMapping;
+    }
+
+    public void setStCustomMapping(List<STCustomMapping> stCustomMapping) {
+        this.stCustomMapping = stCustomMapping;
+    }
 }

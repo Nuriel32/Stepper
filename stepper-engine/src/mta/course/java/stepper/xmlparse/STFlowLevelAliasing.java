@@ -75,4 +75,11 @@ public class STFlowLevelAliasing {
         return this.stFlowLevelAlias;
     }
 
+    public List<STFlowLevelAlias> getStFlowLevelAlias() {
+        return stFlowLevelAlias;
+    }
+
+    public void setStFlowLevelAlias(List<STFlowLevelAlias> stFlowLevelAlias) {
+        this.stFlowLevelAlias = stFlowLevelAlias;
+    }
 }
