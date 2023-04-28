@@ -15,9 +15,9 @@ public class SchemaBaesdJAXCreator {
 
     public static void Loader() {
         try {
-            InputStream inputStream = new FileInputStream(new File("src/resources/world.xml"));
+            InputStream inputStream = new FileInputStream(new File("src/resources/ex1.xml"));
             STFlows countries = deserializeFrom(inputStream);
-            System.out.println("name of first country is: " + countries.().get(0).getName());
+           // System.out.println("name of first country is: " + countries.().get(0).getName());
         } catch (JAXBException | FileNotFoundException e) {
             e.printStackTrace();
         }
