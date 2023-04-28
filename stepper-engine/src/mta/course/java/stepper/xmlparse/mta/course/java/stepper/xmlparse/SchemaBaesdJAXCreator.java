@@ -28,4 +28,3 @@ public class SchemaBaesdJAXCreator {
         return (STFlows) u.unmarshal(in);
     }
 }
-}
