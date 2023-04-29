@@ -7,6 +7,7 @@ import mta.course.java.stepper.step.impl.PersonDetailsStep;
 public enum StepDefinitionRegistry {
     HELLO_WORLD(new HelloWorldStep()),
     PERSON_DETAILS(new PersonDetailsStep())
+
     ;
 
     private final StepDefinition stepDefinition;

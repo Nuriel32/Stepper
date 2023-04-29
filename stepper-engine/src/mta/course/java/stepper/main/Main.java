@@ -1,5 +1,6 @@
 package mta.course.java.stepper.main;
 
+import mta.course.java.stepper.dd.api.AbstractDataDefinition;
 import mta.course.java.stepper.flow.definition.api.FlowDefinition;
 import mta.course.java.stepper.flow.definition.api.FlowDefinitionImpl;
 import mta.course.java.stepper.flow.definition.api.StepUsageDeclarationImpl;
