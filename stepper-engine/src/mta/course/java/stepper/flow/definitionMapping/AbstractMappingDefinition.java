@@ -5,6 +5,7 @@ import mta.course.java.stepper.step.api.AbstractStepDefinition;
 import mta.course.java.stepper.step.api.DataDefinitionDeclaration;
 import mta.course.java.stepper.step.api.DataNecessity;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -13,6 +14,8 @@ public abstract class AbstractMappingDefinition implements MappingDefiniton {
     private  List<AbstractStepDefinition> steps;
     private  List<AbstractStepDefinition> unConnectedSteps;
     private   Map<DataNecessity,AbstractDataDefinition> mapbydatanecessity;
+    private  List<List<AbstractStepDefinition>> possiblesteps;
+
 
 
 
