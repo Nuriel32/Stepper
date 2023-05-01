@@ -8,6 +8,7 @@ public enum StepDefinitionRegistry {
     HELLO_WORLD(new HelloWorldStep()),
     PERSON_DETAILS(new PersonDetailsStep())
 
+
     ;
 
     private final StepDefinition stepDefinition;
