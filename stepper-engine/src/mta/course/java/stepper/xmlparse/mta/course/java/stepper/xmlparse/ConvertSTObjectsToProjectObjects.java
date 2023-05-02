@@ -21,6 +21,17 @@ import java.util.ArrayList;
 import java.util.List;
 public class ConvertSTObjectsToProjectObjects {
     private Map<String, Supplier<StepDefinition>> stepSuppliers;
+    private Map<String,STStepInFlow> mapstep = new HashMap<>();
+
+
+
+    public void mapSTStepsByName(STFlow stFlow) {
+        for (STStepInFlow stStepInFlow : stFlow.getSTStepsInFlow().getSTStepInFlow()) {
+            mapstep.put(stStepInFlow.getName(), stStepInFlow);
+        }
+    }
+
+
     public void SetMapSupllier(){
             stepSuppliers = new HashMap<>();
             stepSuppliers.put("CollectFilesInFolder", () -> new CollectFilesInFolder());
@@ -48,13 +59,21 @@ public class ConvertSTObjectsToProjectObjects {
 
     public FlowDefinition convertSTFlowToFlow(STFlow stFlow) {
         this.SetMapSupllier();
+
             FlowDefinitionImpl flowDefinition = new FlowDefinitionImpl(stFlow.getName(), stFlow.getSTFlowDescription());
 
             // Convert ST-StepInFlow to StepUsageDeclaration and add to the FlowDefinition
             List<STStepInFlow> stStepInFlowList = stFlow.getSTStepsInFlow().getSTStepInFlow();
+            String stFlowOutput = stFlow.getSTFlowOutput();
             for (int i = 0; i < stStepInFlowList.size(); i++) {
                 STStepInFlow stStepInFlow = stStepInFlowList.get(i);
                 flowDefinition.getFlowSteps().add(new StepUsageDeclarationImpl(stepSuppliers.get(stStepInFlowList.get(i).getName()).get()));
+
+                if(stFlowOutput.contains(stStepInFlow.getName()))
+                {
+                    flowDefinition.addFlowOutput(flowDefinition.getFlowSteps().get(i).getFinalStepName());
+                }
+
             } return flowDefinition;
         }
 
