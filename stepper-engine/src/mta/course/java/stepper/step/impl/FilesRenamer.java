@@ -15,7 +15,7 @@ import java.util.Map;
 
 public class FilesRenamer extends AbstractStepDefinition {
     public FilesRenamer() {
-        super("Files_Renamer", false);
+        super("Files Renamer", false);
         addInput(new DataDefinitionDeclarationImpl("FILES_TO_RENAME", DataNecessity.MANDATORY, "Files to rename", DataDefinitionRegistry.LIST));
         addInput(new DataDefinitionDeclarationImpl("PREFIX", DataNecessity.OPTIONAL, "Files to rename", DataDefinitionRegistry.STRING));
         addInput(new DataDefinitionDeclarationImpl("SUFFIX", DataNecessity.OPTIONAL, "Append this suffix", DataDefinitionRegistry.STRING));

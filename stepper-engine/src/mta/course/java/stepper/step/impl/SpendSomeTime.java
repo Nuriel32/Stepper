@@ -13,7 +13,7 @@ import java.util.concurrent.TimeUnit;
 public class SpendSomeTime extends AbstractStepDefinition {
 
     public SpendSomeTime(){
-        super("Time_To_Spend", true);
+        super("Time To Spend", true);
         addInput(new DataDefinitionDeclarationImpl("TIME_TO_SPEND", DataNecessity.MANDATORY ,"Time_To_Spend", DataDefinitionRegistry.DOUBLE));
     }
     public SpendSomeTime(String stepName, boolean readonly) {

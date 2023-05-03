@@ -18,12 +18,15 @@ import java.util.List;
 import java.util.ArrayList;
 import java.util.List;
 public class ConvertSTObjectsToProjectObjects {
+    public STStepper ststeper;
     private Map<String, Supplier<StepDefinition>> stepSuppliers;
     private Map<String,STStepInFlow> mapstep = new HashMap<>();
 
 
-
-
+        public void setStsteper(STStepper s)
+        {
+            ststeper =s;
+        }
 
     public void mapSTStepsByName(STFlow stFlow) {
         for (STStepInFlow stStepInFlow : stFlow.getSTStepsInFlow().getSTStepInFlow()) {
@@ -34,14 +37,14 @@ public class ConvertSTObjectsToProjectObjects {
 
     public void SetMapSupllier(){
             stepSuppliers = new HashMap<>();
-            stepSuppliers.put("CollectFilesInFolder", () -> new CollectFilesInFolder());
-            stepSuppliers.put("CSVExporter", () -> new CSVExporter());
-            stepSuppliers.put("FileDumper", () -> new FileDumper());
-            stepSuppliers.put("FilesContentExtractor", () -> new FilesContentExtractor());
-            stepSuppliers.put("FilesDeleter", () -> new FilesDeleter());
-            stepSuppliers.put("FilesRenamer", () -> new FilesRenamer());
-            stepSuppliers.put("PropertiesExporter", () -> new PropertiesExporter());
-            stepSuppliers.put("SpendSomeTime", () -> new SpendSomeTime("Time_To_Spend",true));
+            stepSuppliers.put("Collect Files In Folder", () -> new CollectFilesInFolder());
+            stepSuppliers.put("CSV Exporter", () -> new CSVExporter());
+            stepSuppliers.put("File Dumper", () -> new FileDumper());
+            stepSuppliers.put("Files Content Extractor", () -> new FilesContentExtractor());
+            stepSuppliers.put("Files Deleter", () -> new FilesDeleter());
+            stepSuppliers.put("Files Renamer", () -> new FilesRenamer());
+            stepSuppliers.put("Properties Exporter", () -> new PropertiesExporter());
+            stepSuppliers.put("Spend Some Time", () -> new SpendSomeTime("Time_To_Spend",true));
         }
 
         public StepDefinition convertSTStepToStep(STStepInFlow stStepInFlow) {
@@ -60,18 +63,19 @@ public class ConvertSTObjectsToProjectObjects {
     public FlowDefinition convertSTFlowToFlow(STFlow stFlow) {
         this.SetMapSupllier();
 
-            FlowDefinitionImpl flowDefinition = new FlowDefinitionImpl(stFlow.getName(), stFlow.getSTFlowDescription());
+            FlowDefinition flowDefinition = new FlowDefinitionImpl(stFlow.getName(), stFlow.getSTFlowDescription());
 
             // Convert ST-StepInFlow to StepUsageDeclaration and add to the FlowDefinition
             List<STStepInFlow> stStepInFlowList = stFlow.getSTStepsInFlow().getSTStepInFlow();
             String stFlowOutput = stFlow.getSTFlowOutput();
             for (int i = 0; i < stStepInFlowList.size(); i++) {
                 STStepInFlow stStepInFlow = stStepInFlowList.get(i);
-                flowDefinition.getFlowSteps().add(new StepUsageDeclarationImpl(stepSuppliers.get(stStepInFlowList.get(i).getName()).get()));
+                StepDefinition stepDefinition = stepSuppliers.get(stStepInFlow.getName()).get();
+                flowDefinition.getFlowSteps().add(new StepUsageDeclarationImpl(stepDefinition));
 
                 if(stFlowOutput.contains(stStepInFlow.getName()))
                 {
-                    flowDefinition.addFlowOutput(flowDefinition.getFlowSteps().get(i).getFinalStepName());
+                 //   flowDefinition.addFlowOutput(flowDefinition.getFlowSteps().get(i).getFinalStepName());
                 }
                 flowDefinition.SetAliasFlowDefinition(CovnertSTflowlevelalias(flowDefinition,stFlow.getSTFlowLevelAliasing()));
 

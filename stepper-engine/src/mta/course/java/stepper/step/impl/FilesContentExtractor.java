@@ -18,7 +18,7 @@ import java.util.List;
 
 public class FilesContentExtractor extends AbstractStepDefinition {
     public FilesContentExtractor() {
-        super("Files_Contect_Extractor", false);
+        super("Files Contect Extractor", false);
         addInput(new DataDefinitionDeclarationImpl("FILES_LIST", DataNecessity.MANDATORY, "Files to extract", DataDefinitionRegistry.LIST));
         addInput(new DataDefinitionDeclarationImpl("LINE", DataNecessity.MANDATORY, "Line number to extract", DataDefinitionRegistry.DOUBLE));
 

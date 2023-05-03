@@ -18,7 +18,7 @@ public class SchemaBaesdJAXCreator {
 
     public static void Loader() {
         try {
-            InputStream inputStream = SchemaBaesdJAXCreator.class.getClassLoader().getResourceAsStream("ex1.xml");
+            InputStream inputStream = SchemaBaesdJAXCreator.class.getClassLoader().getResourceAsStream("\"D:\\Steptocheck\\ex1.xml\"");
             if (inputStream == null) {
                 throw new FileNotFoundException("XML file not found");
             }

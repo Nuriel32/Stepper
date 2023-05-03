@@ -14,7 +14,7 @@ import java.nio.file.Paths;
 public class FileDumper extends AbstractStepDefinition {
 
     public FileDumper() {
-        super("File_Dumper", true);
+        super("File Dumper", true);
         addInput(new DataDefinitionDeclarationImpl("CONTENT", DataNecessity.MANDATORY, "Content", DataDefinitionRegistry.STRING));
         addInput(new DataDefinitionDeclarationImpl("FILE_NAME", DataNecessity.MANDATORY, "Target file path", DataDefinitionRegistry.STRING));
 

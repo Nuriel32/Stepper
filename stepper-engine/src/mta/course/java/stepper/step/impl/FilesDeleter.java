@@ -17,7 +17,7 @@ import java.util.Map;
 public class FilesDeleter extends AbstractStepDefinition {
 
     public FilesDeleter() {
-        super("Files_Deleter", false);
+        super("Files Deleter", false);
         addInput(new DataDefinitionDeclarationImpl("FILES_LIST", DataNecessity.MANDATORY, "Files to delete", DataDefinitionRegistry.FILE));
         addInput(new DataDefinitionDeclarationImpl("DELETED_LIST", DataNecessity.NA, "Files failed to be deleted", DataDefinitionRegistry.STRING));
         addInput(new DataDefinitionDeclarationImpl("DELETION_STATS", DataNecessity.NA, "Deletion  summary results", DataDefinitionRegistry.MAPPING));
