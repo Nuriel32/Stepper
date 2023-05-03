@@ -7,12 +7,12 @@ public class FlowLevelAlias {
     DataDefinitionDeclaration source;
     String alias;
 
-    public StepUsageDeclaration getStepname() {
+    public StepUsageDeclaration getStepaliasname() {
         return stepaliasname;
     }
 
-    public void setStepname(StepUsageDeclaration stepname) {
-        this.stepaliasname = stepname;
+    public void setStepaliasname(StepUsageDeclaration stepaliasname) {
+        this.stepaliasname = stepaliasname;
     }
 
     public DataDefinitionDeclaration getSource() {
@@ -28,6 +28,6 @@ public class FlowLevelAlias {
     }
 
     public void setAlias(String alias) {
-        alias = alias;
+        this.alias = alias;
     }
 }

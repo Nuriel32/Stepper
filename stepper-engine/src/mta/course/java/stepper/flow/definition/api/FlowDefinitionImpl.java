@@ -62,4 +62,8 @@ public class FlowDefinitionImpl implements FlowDefinition {
     public List<FlowLevelAlias> getFlowLevelAlias(){
         return FlowLevelAlias;
     }
+    @Override
+    public void SetAliasFlowDefinition(List<FlowLevelAlias> flowLevelAlias){
+        FlowLevelAlias = flowLevelAlias;
+    }
 }
