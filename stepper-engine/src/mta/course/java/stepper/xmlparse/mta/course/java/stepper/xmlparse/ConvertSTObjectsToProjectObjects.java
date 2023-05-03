@@ -21,6 +21,7 @@ public class ConvertSTObjectsToProjectObjects {
     public STStepper ststeper;
     private Map<String, Supplier<StepDefinition>> stepSuppliers;
     private Map<String,STStepInFlow> mapstep = new HashMap<>();
+    private Map<String,String> aliaserhelper = new HashMap();
 
 
         public void setStsteper(STStepper s)
@@ -46,22 +47,41 @@ public class ConvertSTObjectsToProjectObjects {
             stepSuppliers.put("Properties Exporter", () -> new PropertiesExporter());
             stepSuppliers.put("Spend Some Time", () -> new SpendSomeTime("Time_To_Spend",true));
         }
+    public void setAliaserHelper(List<STStepInFlow> stSteps) {
+        for (STStepInFlow stStep : stSteps) {
+            String name = stStep.getName();
+            String alias = stStep.getAlias();
 
+            if (alias != null && !alias.isEmpty()) {
+                aliaserhelper.put(name, alias);
+            }
+        }
+    }
         public StepDefinition convertSTStepToStep(STStepInFlow stStepInFlow) {
         this.SetMapSupllier();
             String stepName = stStepInFlow.getName();
+            String aliasName = stStepInFlow.getName();
+            if(aliaserhelper.containsKey(aliasName)){
+                stepName = aliaserhelper.get(aliasName);
+            }
+
             Supplier<StepDefinition> stepSupplier = stepSuppliers.get(stepName);
 
             if (stepSupplier == null) {
                 throw new IllegalArgumentException("Unknown step name: " + stepName);
             }
+            StepDefinition stepDefinition = stepSupplier.get();
 
-            return stepSupplier.get();
+            if(null!=stStepInFlow.getAlias()) {
+                stepDefinition.SetAliasName(stStepInFlow.getAlias());
+            }
+            return stepDefinition;
         }
 
 
     public FlowDefinition convertSTFlowToFlow(STFlow stFlow) {
         this.SetMapSupllier();
+        this.setAliaserHelper(stFlow.getSTStepsInFlow().getSTStepInFlow());
 
             FlowDefinition flowDefinition = new FlowDefinitionImpl(stFlow.getName(), stFlow.getSTFlowDescription());
 
@@ -77,9 +97,12 @@ public class ConvertSTObjectsToProjectObjects {
                 {
                   flowDefinition.addFlowOutput(flowDefinition.getFlowSteps().get(i).getFinalStepName());
                 }
-                flowDefinition.SetAliasFlowDefinition(CovnertSTflowlevelalias(flowDefinition,stFlow.getSTFlowLevelAliasing()));
 
-            } return flowDefinition;
+
+
+            }
+        flowDefinition.SetAliasFlowDefinition(CovnertSTflowlevelalias(flowDefinition,stFlow.getSTFlowLevelAliasing()));
+            return flowDefinition;
         }
 
 

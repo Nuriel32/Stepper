@@ -14,7 +14,7 @@ import java.util.Collections;
 public class CSVExporter extends AbstractStepDefinition {
     public CSVExporter()
     {
-        super("CSV EXPORTER", true);
+        super("CSV Exporter", true);
         addInput(new DataDefinitionDeclarationImpl("SOURCE", DataNecessity.MANDATORY, "Source data", DataDefinitionRegistry.RELATION));
         addOutput(new DataDefinitionDeclarationImpl("RESULT", DataNecessity.MANDATORY, "CSV exportResult", DataDefinitionRegistry.STRING));
     }

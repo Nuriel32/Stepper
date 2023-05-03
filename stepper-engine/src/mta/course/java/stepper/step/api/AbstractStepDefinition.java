@@ -16,6 +16,8 @@ public abstract class AbstractStepDefinition implements StepDefinition {
     private final boolean readonly;
     private final List<DataDefinitionDeclaration> inputs;
     private final List<DataDefinitionDeclaration> outputs;
+
+    private  String aliasname;
 /**
  * Aconstractor
  * @parm String stepName -> the name of the step.
@@ -28,6 +30,7 @@ public abstract class AbstractStepDefinition implements StepDefinition {
         this.readonly = readonly;
         inputs = new ArrayList<>();
         outputs = new ArrayList<>();
+        this.aliasname =stepName;
     }
 /**
  * This is a protected void function that add an data type DataDefinitionDeclartion to the input Lists.
@@ -64,5 +67,16 @@ public abstract class AbstractStepDefinition implements StepDefinition {
     @Override
     public List<DataDefinitionDeclaration> outputs() {
         return outputs;
+    }
+
+    @Override
+    public String getAliasName()
+    {
+        return aliasname;
+    }
+    @Override
+    public void SetAliasName(String newalias)
+    {
+        aliasname = newalias;
     }
 }
