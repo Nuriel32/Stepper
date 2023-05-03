@@ -15,7 +15,7 @@ public interface FlowDefinition {
     String getDescription();
     List<StepUsageDeclaration> getFlowSteps();
     List<String> getFlowFormalOutputs();
-
+    List<FlowLevelAlias> getFlowLevelAlias();
     void validateFlowStructure();
     List<DataDefinitionDeclaration> getFlowFreeInputs();
 }

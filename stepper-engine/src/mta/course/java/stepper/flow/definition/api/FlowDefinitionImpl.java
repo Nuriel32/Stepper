@@ -15,6 +15,7 @@ public class FlowDefinitionImpl implements FlowDefinition {
     private final String description;
     private final List<String> flowOutputs;
     private final List<StepUsageDeclaration> steps;
+    List<FlowLevelAlias> FlowLevelAlias;
 
     public FlowDefinitionImpl(String name, String description) {
         this.name = name;
@@ -55,5 +56,10 @@ public class FlowDefinitionImpl implements FlowDefinition {
     @Override
     public List<String> getFlowFormalOutputs() {
         return flowOutputs;
+    }
+
+    @Override
+    public List<FlowLevelAlias> getFlowLevelAlias(){
+        return FlowLevelAlias;
     }
 }
