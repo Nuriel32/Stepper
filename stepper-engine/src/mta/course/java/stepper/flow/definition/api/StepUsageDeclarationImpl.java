@@ -36,6 +36,22 @@ public class StepUsageDeclarationImpl implements StepUsageDeclaration {
         this.alias = alias;
     }
 
+    public boolean isSkipIfFail() {
+        return skipIfFail;
+    }
+
+    public String getStepName() {
+        return stepName;
+    }
+
+    public String getAlias() {
+        return alias;
+    }
+
+    public void setAlias(String alias) {
+        this.alias = alias;
+    }
+
     @Override
     public String getFinalStepName() {
         return stepName;
@@ -44,6 +60,16 @@ public class StepUsageDeclarationImpl implements StepUsageDeclaration {
     @Override
     public StepDefinition getStepDefinition() {
         return stepDefinition;
+    }
+
+    @Override
+    public String getAliasName() {
+        return null;
+    }
+
+    @Override
+    public String SetAliasName(String aliasname) {
+        return null;
     }
 
     @Override

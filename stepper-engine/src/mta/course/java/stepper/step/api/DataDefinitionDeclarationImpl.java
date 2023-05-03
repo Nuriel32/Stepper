@@ -8,6 +8,7 @@ public class DataDefinitionDeclarationImpl implements DataDefinitionDeclaration 
     private final DataNecessity necessity;
     private final String userString;
     private final DataDefinition dataDefinition;
+    private  String aliasName;
 
     public DataDefinitionDeclarationImpl(String name, DataNecessity necessity, String userString, DataDefinition dataDefinition) {
         this.name = name;
@@ -34,5 +35,15 @@ public class DataDefinitionDeclarationImpl implements DataDefinitionDeclaration 
     @Override
     public DataDefinition dataDefinition() {
         return dataDefinition;
+    }
+
+    @Override
+    public String getAliasName() {
+        return aliasName;
+    }
+
+
+    public void setAliasName(String aliasName) {
+        aliasName = aliasName;
     }
 }
