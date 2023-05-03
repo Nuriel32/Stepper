@@ -20,8 +20,9 @@ public class FlowDefinitionImpl implements FlowDefinition {
     public FlowDefinitionImpl(String name, String description) {
         this.name = name;
         this.description = description;
-        flowOutputs = new ArrayList<>();
+        flowOutputs = new ArrayList<String>();
         steps = new ArrayList<>();
+
     }
 
     public void addFlowOutput(String outputName) {
@@ -66,4 +67,5 @@ public class FlowDefinitionImpl implements FlowDefinition {
     public void SetAliasFlowDefinition(List<FlowLevelAlias> flowLevelAlias){
         FlowLevelAlias = flowLevelAlias;
     }
+
 }

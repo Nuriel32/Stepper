@@ -75,7 +75,7 @@ public class ConvertSTObjectsToProjectObjects {
 
                 if(stFlowOutput.contains(stStepInFlow.getName()))
                 {
-                 //   flowDefinition.addFlowOutput(flowDefinition.getFlowSteps().get(i).getFinalStepName());
+                  flowDefinition.addFlowOutput(flowDefinition.getFlowSteps().get(i).getFinalStepName());
                 }
                 flowDefinition.SetAliasFlowDefinition(CovnertSTflowlevelalias(flowDefinition,stFlow.getSTFlowLevelAliasing()));
 

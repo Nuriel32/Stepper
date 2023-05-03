@@ -19,5 +19,6 @@ public interface FlowDefinition {
     void validateFlowStructure();
     public List<DataDefinitionDeclaration> getFlowFreeInputs();
     void SetAliasFlowDefinition(List<FlowLevelAlias> flowLevelAlias);
+    void addFlowOutput(String outputName);
 
 }
