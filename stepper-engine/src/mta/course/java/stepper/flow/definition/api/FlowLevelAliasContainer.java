@@ -19,5 +19,6 @@ public class FlowLevelAliasContainer {
             single.getSource().setAliasName(single.getAlias());
 
         }
+        //Container = null;
     }
 }
