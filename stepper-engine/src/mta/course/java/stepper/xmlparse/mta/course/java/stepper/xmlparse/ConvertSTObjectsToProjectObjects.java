@@ -119,6 +119,7 @@ public class ConvertSTObjectsToProjectObjects {
         this.setAliaserHelper(stFlow.getSTStepsInFlow().getSTStepInFlow());
         this.setAliasToStepNameMap(stFlow.getStStepsInFlow().getSTStepInFlow());
 
+
             FlowDefinition flowDefinition = new FlowDefinitionImpl(stFlow.getName(), stFlow.getSTFlowDescription());
 
             // Convert ST-StepInFlow to StepUsageDeclaration and add to the FlowDefinition
@@ -143,6 +144,9 @@ public class ConvertSTObjectsToProjectObjects {
 
             }
             flowDefinition.SetAliasFlowDefinition(CovnertSTflowlevelalias(flowDefinition,stFlow.getSTFlowLevelAliasing()));
+            FlowLevelAliasContainer container = new FlowLevelAliasContainer();
+            container.setContainer(flowDefinition.getFlowLevelAlias());
+                container.Unloadcontainer();
             return flowDefinition;
         }
 
