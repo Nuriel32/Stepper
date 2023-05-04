@@ -120,43 +120,45 @@ public class ConvertSTObjectsToProjectObjects {
         this.setAliasToStepNameMap(stFlow.getStStepsInFlow().getSTStepInFlow());
 
 
-            FlowDefinition flowDefinition = new FlowDefinitionImpl(stFlow.getName(), stFlow.getSTFlowDescription());
+        FlowDefinition flowDefinition = new FlowDefinitionImpl(stFlow.getName(), stFlow.getSTFlowDescription());
 
-            // Convert ST-StepInFlow to StepUsageDeclaration and add to the FlowDefinition
-            List<STStepInFlow> stStepInFlowList = stFlow.getSTStepsInFlow().getSTStepInFlow();
-            String stFlowOutput = stFlow.getSTFlowOutput();
-            for (int i = 0; i < stStepInFlowList.size(); i++) {
-                STStepInFlow stStepInFlow = stStepInFlowList.get(i);
-                //The use of map.
-
-
-                //
-                StepDefinition stepDefinition = convertSTStepToStep(stStepInFlow);
-                flowDefinition.getFlowSteps().add(new StepUsageDeclarationImpl(stepDefinition));
-                flowDefinition.getFlowSteps().get(i).SetAliasName(stepDefinition.getAliasName());
-
-                if(stFlowOutput.contains(stStepInFlow.getName()))
-                {
-                  flowDefinition.addFlowOutput(flowDefinition.getFlowSteps().get(i).getFinalStepName());
-                }
+        // Convert ST-StepInFlow to StepUsageDeclaration and add to the FlowDefinition
+        List<STStepInFlow> stStepInFlowList = stFlow.getSTStepsInFlow().getSTStepInFlow();
+        String stFlowOutput = stFlow.getSTFlowOutput();
+        for (int i = 0; i < stStepInFlowList.size(); i++) {
+            STStepInFlow stStepInFlow = stStepInFlowList.get(i);
+            //The use of map.
 
 
+            //
+            StepDefinition stepDefinition = convertSTStepToStep(stStepInFlow);
+            flowDefinition.getFlowSteps().add(new StepUsageDeclarationImpl(stepDefinition));
+            flowDefinition.getFlowSteps().get(i).SetAliasName(stepDefinition.getAliasName());
 
+            if (stFlowOutput.contains(stStepInFlow.getName())) {
+                flowDefinition.addFlowOutput(flowDefinition.getFlowSteps().get(i).getFinalStepName());
             }
-            flowDefinition.SetAliasFlowDefinition(CovnertSTflowlevelalias(flowDefinition,stFlow.getSTFlowLevelAliasing()));
+
+
+        }
+      //  if ( flowDefinition.getFlowLevelAlias()!= null) { need to find what make execptions
+            flowDefinition.SetAliasFlowDefinition(CovnertSTflowlevelalias(flowDefinition, stFlow.getSTFlowLevelAliasing()));
             FlowLevelAliasContainer container = new FlowLevelAliasContainer();
             container.setContainer(flowDefinition.getFlowLevelAlias());
-                container.Unloadcontainer();
-            return flowDefinition;
-        }
+            container.Unloadcontainer();
 
+        //}
+        return flowDefinition;
+    }
 
     public List<FlowDefinition> convertSTFlowsToFlowDefinitions(STFlows stFlows) {
         List<FlowDefinition> flowDefinitions = new ArrayList<>();
         List<STFlow> stflows =  stFlows.getSTFlow();
         for (STFlow singleflow : stflows) {
             FlowDefinition flowDefinition = convertSTFlowToFlow(singleflow);
-            flowDefinitions.add(flowDefinition);
+            if (flowDefinition != null) {
+                flowDefinitions.add(flowDefinition);
+            }
         }
         return flowDefinitions;
     }
