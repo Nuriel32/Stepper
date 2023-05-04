@@ -8,6 +8,6 @@ public interface StepUsageDeclaration {
     String getFinalStepName();
     StepDefinition getStepDefinition();
     String getAliasName();
-    String SetAliasName(String aliasname);
+    void SetAliasName(String aliasname);
     boolean skipIfFail();
 }

@@ -68,8 +68,8 @@ public class StepUsageDeclarationImpl implements StepUsageDeclaration {
     }
 
     @Override
-    public String SetAliasName(String aliasname) {
-        return null;
+    public void SetAliasName(String aliasname) {
+        this.alias = aliasname;
     }
 
     @Override

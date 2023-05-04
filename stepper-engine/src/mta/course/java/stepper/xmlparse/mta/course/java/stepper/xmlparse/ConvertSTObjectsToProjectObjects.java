@@ -21,7 +21,12 @@ public class ConvertSTObjectsToProjectObjects {
     public STStepper ststeper;
     private Map<String, Supplier<StepDefinition>> stepSuppliers;
     private Map<String,STStepInFlow> mapstep = new HashMap<>();
-    private Map<String,String> aliaserhelper = new HashMap();
+    private Map<String,List<String>> aliaserhelper = new HashMap<>();
+
+    private Map<String,String> fromalias2stepname = new HashMap<>();
+
+
+
 
 
         public void setStsteper(STStepper s)
@@ -29,12 +34,30 @@ public class ConvertSTObjectsToProjectObjects {
             ststeper =s;
         }
 
+
+        /**
+         * This functin map name of ststep to his Step STStepInFlow
+         * ***/
     public void mapSTStepsByName(STFlow stFlow) {
         for (STStepInFlow stStepInFlow : stFlow.getSTStepsInFlow().getSTStepInFlow()) {
             mapstep.put(stStepInFlow.getName(), stStepInFlow);
         }
     }
 
+    /**
+     * This function set a map that key is alias name and value is step name
+     *
+     ***/
+    public void setAliasToStepNameMap(List<STStepInFlow> stSteps) {
+        for (STStepInFlow stStep : stSteps) {
+            String name = stStep.getName();
+            String alias = stStep.getAlias();
+
+            if (alias != null && !alias.isEmpty()) {
+                fromalias2stepname.put(alias, name);
+            }
+        }
+    }
 
     public void SetMapSupllier(){
             stepSuppliers = new HashMap<>();
@@ -47,34 +70,46 @@ public class ConvertSTObjectsToProjectObjects {
             stepSuppliers.put("Properties Exporter", () -> new PropertiesExporter());
             stepSuppliers.put("Spend Some Time", () -> new SpendSomeTime("Time_To_Spend",true));
         }
+
+
+
+        /**
+         * For each step in flow add to some step his alias name in the aliashelper mapping.
+         * **/
     public void setAliaserHelper(List<STStepInFlow> stSteps) {
         for (STStepInFlow stStep : stSteps) {
             String name = stStep.getName();
             String alias = stStep.getAlias();
 
             if (alias != null && !alias.isEmpty()) {
-                aliaserhelper.put(name, alias);
+                aliaserhelper.computeIfAbsent(name, k -> new ArrayList<>()).add(alias);
+
             }
         }
     }
+
+    /**
+     * This function convert a single step to his
+     *
+     * **/
+
         public StepDefinition convertSTStepToStep(STStepInFlow stStepInFlow) {
         this.SetMapSupllier();
             String stepName = stStepInFlow.getName();
-            String aliasName = stStepInFlow.getName();
-            if(aliaserhelper.containsKey(aliasName)){
-                stepName = aliaserhelper.get(aliasName);
-            }
-
+            String aliasName = stStepInFlow.getAlias();
             Supplier<StepDefinition> stepSupplier = stepSuppliers.get(stepName);
 
             if (stepSupplier == null) {
                 throw new IllegalArgumentException("Unknown step name: " + stepName);
             }
+
             StepDefinition stepDefinition = stepSupplier.get();
 
             if(null!=stStepInFlow.getAlias()) {
                 stepDefinition.SetAliasName(stStepInFlow.getAlias());
             }
+            else {stepDefinition.SetAliasName(stStepInFlow.getName());}
+
             return stepDefinition;
         }
 
@@ -82,6 +117,7 @@ public class ConvertSTObjectsToProjectObjects {
     public FlowDefinition convertSTFlowToFlow(STFlow stFlow) {
         this.SetMapSupllier();
         this.setAliaserHelper(stFlow.getSTStepsInFlow().getSTStepInFlow());
+        this.setAliasToStepNameMap(stFlow.getStStepsInFlow().getSTStepInFlow());
 
             FlowDefinition flowDefinition = new FlowDefinitionImpl(stFlow.getName(), stFlow.getSTFlowDescription());
 
@@ -90,8 +126,13 @@ public class ConvertSTObjectsToProjectObjects {
             String stFlowOutput = stFlow.getSTFlowOutput();
             for (int i = 0; i < stStepInFlowList.size(); i++) {
                 STStepInFlow stStepInFlow = stStepInFlowList.get(i);
-                StepDefinition stepDefinition = stepSuppliers.get(stStepInFlow.getName()).get();
+                //The use of map.
+
+
+                //
+                StepDefinition stepDefinition = convertSTStepToStep(stStepInFlow);
                 flowDefinition.getFlowSteps().add(new StepUsageDeclarationImpl(stepDefinition));
+                flowDefinition.getFlowSteps().get(i).SetAliasName(stepDefinition.getAliasName());
 
                 if(stFlowOutput.contains(stStepInFlow.getName()))
                 {
@@ -101,7 +142,7 @@ public class ConvertSTObjectsToProjectObjects {
 
 
             }
-        flowDefinition.SetAliasFlowDefinition(CovnertSTflowlevelalias(flowDefinition,stFlow.getSTFlowLevelAliasing()));
+       // flowDefinition.SetAliasFlowDefinition(CovnertSTflowlevelalias(flowDefinition,stFlow.getSTFlowLevelAliasing()));
             return flowDefinition;
         }
 
@@ -163,6 +204,14 @@ public class ConvertSTObjectsToProjectObjects {
 
 
 
+    public boolean isAliasInList(String name, String alias) {
+        List<String> aliases = aliaserhelper.get(name);
 
-
+        if (aliases != null) {
+            return aliases.contains(alias);
+        } else {
+            return false; // Return false if the name is not in the map
+        }
+    }
 }
+
