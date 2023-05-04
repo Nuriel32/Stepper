@@ -22,6 +22,12 @@ public class SpendSomeTime extends AbstractStepDefinition {
     }
 
     @Override
+    public Class<?> getType() {
+        return this.getClass();
+    }
+
+
+    @Override
     public StepResult invoke(StepExecutionContext context) {
         // fetch inputs here, somehow
 

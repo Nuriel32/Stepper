@@ -13,6 +13,8 @@ public interface StepDefinition {
     List<DataDefinitionDeclaration> inputs();
     List<DataDefinitionDeclaration> outputs();
     StepResult invoke(StepExecutionContext context);
+    Class<?> getType();
+
     String getAliasName();
     void SetAliasName(String newalias);
 }

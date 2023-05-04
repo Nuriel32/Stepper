@@ -37,5 +37,10 @@ public class FileDumper extends AbstractStepDefinition {
         }
     }
 
+    @Override
+    public Class<?> getType() {
+        return this.getClass();
+    }
+
 }
 

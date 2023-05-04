@@ -45,4 +45,9 @@ public class FilesDeleter extends AbstractStepDefinition {
         return StepResult.SUCCESS;
     }
 
+    @Override
+    public Class<?> getType() {
+        return this.getClass();
+    }
+
 }

@@ -20,4 +20,9 @@ public class PropertiesExporter extends AbstractStepDefinition {
     public StepResult invoke(StepExecutionContext context) {
         return null;
     }
+
+    @Override
+    public Class<?> getType() {
+        return this.getClass();
+    }
 }

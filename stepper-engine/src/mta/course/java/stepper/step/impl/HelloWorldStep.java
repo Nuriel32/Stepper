@@ -19,4 +19,9 @@ public class HelloWorldStep extends AbstractStepDefinition {
         System.out.println("Hello world !");
         return StepResult.SUCCESS;
     }
+
+    @Override
+    public Class<?> getType() {
+        return this.getClass();
+    }
 }

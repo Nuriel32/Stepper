@@ -44,5 +44,10 @@ public class FilesContentExtractor extends AbstractStepDefinition {
         context.storeDataValue("DATA", extractedLines);
         return StepResult.SUCCESS;
     }
+
+    @Override
+    public Class<?> getType() {
+        return null;
+    }
 }
 
