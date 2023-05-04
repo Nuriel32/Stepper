@@ -142,7 +142,7 @@ public class ConvertSTObjectsToProjectObjects {
 
 
             }
-       // flowDefinition.SetAliasFlowDefinition(CovnertSTflowlevelalias(flowDefinition,stFlow.getSTFlowLevelAliasing()));
+            flowDefinition.SetAliasFlowDefinition(CovnertSTflowlevelalias(flowDefinition,stFlow.getSTFlowLevelAliasing()));
             return flowDefinition;
         }
 
@@ -160,7 +160,7 @@ public class ConvertSTObjectsToProjectObjects {
 
     public StepUsageDeclaration findStepUsageDeclarationByName(FlowDefinition flowDefinition, String stepName) {
         for (StepUsageDeclaration stepUsageDeclaration : flowDefinition.getFlowSteps()) {
-            if (stepUsageDeclaration.getStepDefinition().name().equals(stepName)) {
+            if (stepUsageDeclaration.getStepDefinition().getAliasName().equals(stepName)) {
                 return stepUsageDeclaration;
             }
         }
@@ -195,6 +195,11 @@ public class ConvertSTObjectsToProjectObjects {
 
     public DataDefinitionDeclaration findDataDefinitionDeclarationByName(StepUsageDeclaration stepUsageDeclaration, String dataDefinitionName) {
         for (DataDefinitionDeclaration dataDefinitionDeclaration : stepUsageDeclaration.getStepDefinition().outputs()) {
+            if (dataDefinitionDeclaration.getName().equals(dataDefinitionName)) {
+                return dataDefinitionDeclaration;
+            }
+        }
+        for (DataDefinitionDeclaration dataDefinitionDeclaration : stepUsageDeclaration.getStepDefinition().inputs()) {
             if (dataDefinitionDeclaration.getName().equals(dataDefinitionName)) {
                 return dataDefinitionDeclaration;
             }
