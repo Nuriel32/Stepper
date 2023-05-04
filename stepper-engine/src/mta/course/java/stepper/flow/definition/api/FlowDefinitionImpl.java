@@ -29,6 +29,7 @@ public class FlowDefinitionImpl implements FlowDefinition {
         flowOutputs.add(outputName);
     }
 
+
     @Override
     public void validateFlowStructure() {
         // do some validation logic...

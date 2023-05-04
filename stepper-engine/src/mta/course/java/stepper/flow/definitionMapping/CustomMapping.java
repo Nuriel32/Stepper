@@ -6,6 +6,7 @@ public class CustomMapping extends AbstractMappingDefinition{
         super();
     }
 
+    //public void validCustom() {}
 
 
     //need to implement invoke
