@@ -11,35 +11,35 @@ public class CustomMappingOBJ {
     private  StepUsageDeclaration destinationstep;
     private DataDefinitionDeclaration destinationinput;
 
-    public StepUsageDeclaration getSstep() {
+    public StepUsageDeclaration getSourcestep() {
         return sourcestep;
     }
 
-    public void setSStep(StepUsageDeclaration sstep) {
-        this.sourcestep = sstep;
+    public void setSourcestep(StepUsageDeclaration sourcestep) {
+        this.sourcestep = sourcestep;
     }
 
-    public DataDefinitionDeclaration getSSutput() {
+    public DataDefinitionDeclaration getSourceoutput() {
         return sourceoutput;
     }
 
-    public void setSoutput(DataDefinitionDeclaration soutput) {
-        this.sourceoutput = soutput;
+    public void setSourceoutput(DataDefinitionDeclaration sourceoutput) {
+        this.sourceoutput = sourceoutput;
     }
 
-    public StepUsageDeclaration getDStep() {
+    public StepUsageDeclaration getDestinationstep() {
         return destinationstep;
     }
 
-    public void setDStep(StepUsageDeclaration dstep) {
-        this.destinationstep = dstep;
+    public void setDestinationstep(StepUsageDeclaration destinationstep) {
+        this.destinationstep = destinationstep;
     }
 
-    public DataDefinitionDeclaration getDOutput() {
+    public DataDefinitionDeclaration getDestinationinput() {
         return destinationinput;
     }
 
-    public void setDOutput(DataDefinitionDeclaration input) {
-        this.destinationinput = input;
+    public void setDestinationinput(DataDefinitionDeclaration destinationinput) {
+        this.destinationinput = destinationinput;
     }
 }
