@@ -227,5 +227,63 @@ public class ConvertSTObjectsToProjectObjects implements ConvertSTAPI {
             return false; // Return false if the name is not in the map
         }
     }
+
+/**
+ *  convert a single custom mapping  **/
+public CustomMappingOBJ convertSTCustomMappingToCustomMappingOBJ(STCustomMapping stCustomMapping, FlowDefinition flowDefinition) {
+    CustomMappingOBJ customMappingOBJ = new CustomMappingOBJ();
+
+    // Find the source step and output
+    StepUsageDeclaration sourceStepUsageDeclaration = findStepUsageDeclarationByAliasName(flowDefinition, stCustomMapping.getSourceStep());
+
+    DataDefinitionDeclaration sourceDataDefinitionDeclaration = findDataDefinitionDeclarationByAliasName(sourceStepUsageDeclaration, stCustomMapping.getSourceData());
+
+
+    // Find the destination step and output
+    StepUsageDeclaration destStepUsageDeclaration = findStepUsageDeclarationByAliasName(flowDefinition, stCustomMapping.getTargetStep());
+
+    DataDefinitionDeclaration destDataDefinitionDeclaration = findDataDefinitionDeclarationByAliasName(destStepUsageDeclaration, stCustomMapping.getTargetData());
+
+    // Set the source and destination steps and outputs
+    customMappingOBJ.setSStep(sourceStepUsageDeclaration);
+    customMappingOBJ.setSoutput(sourceDataDefinitionDeclaration);
+    customMappingOBJ.setDStep(destStepUsageDeclaration);
+    customMappingOBJ.setDOutput(destDataDefinitionDeclaration);
+
+    return customMappingOBJ;
 }
+  /** Convert List of STCustomMapping to List<CustomMappingOBJ> **/
+        public List<CustomMappingOBJ> convertSTCustomMappingsToCustomMappingOBJs(STCustomMappings stCustomMappings, FlowDefinition flowDefinition) {
+            List<CustomMappingOBJ> customMappingOBJs = new ArrayList<>();
+
+            for (STCustomMapping stCustomMapping : stCustomMappings.getStCustomMapping()) {
+                CustomMappingOBJ customMappingOBJ = convertSTCustomMappingToCustomMappingOBJ(stCustomMapping, flowDefinition);
+                customMappingOBJs.add(customMappingOBJ);
+            }
+
+            return customMappingOBJs;
+        }
+
+    public StepUsageDeclaration findStepUsageDeclarationByAliasName(FlowDefinition flowDefinition, String aliasName) {
+        for (FlowLevelAlias flowLevelAlias : flowDefinition.getFlowLevelAlias()) {
+            if (flowLevelAlias.getAlias().equals(aliasName)) {
+                return findStepUsageDeclarationByName(flowDefinition, flowLevelAlias.getAlias());
+            }
+        }
+        return null;
+    }
+
+    public DataDefinitionDeclaration findDataDefinitionDeclarationByAliasName(StepUsageDeclaration stepUsageDeclaration, String aliasName) {
+        for (DataDefinitionDeclaration dataDefinitionDeclaration : stepUsageDeclaration.getStepDefinition().outputs()) {
+            if (dataDefinitionDeclaration.getAliasName() != null && dataDefinitionDeclaration.getAliasName().equals(aliasName)) {
+                return dataDefinitionDeclaration;
+
+            }
+        }
+        return null;
+    }
+}
+
+
+
 
