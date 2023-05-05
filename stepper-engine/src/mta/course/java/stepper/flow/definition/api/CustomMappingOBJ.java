@@ -3,43 +3,43 @@ package mta.course.java.stepper.flow.definition.api;
 import mta.course.java.stepper.step.api.DataDefinitionDeclaration;
 
 public class CustomMappingOBJ {
-    private StepUsageDeclaration sstep;
-    private  DataDefinitionDeclaration soutput;
+    private StepUsageDeclaration sourcestep;
+    private  DataDefinitionDeclaration sourceoutput;
 
 
 
-    private  StepUsageDeclaration dstep;
-    private DataDefinitionDeclaration doutput;
+    private  StepUsageDeclaration destinationstep;
+    private DataDefinitionDeclaration destinationinput;
 
     public StepUsageDeclaration getSstep() {
-        return sstep;
+        return sourcestep;
     }
 
     public void setSStep(StepUsageDeclaration sstep) {
-        this.sstep = sstep;
+        this.sourcestep = sstep;
     }
 
     public DataDefinitionDeclaration getSSutput() {
-        return soutput;
+        return sourceoutput;
     }
 
     public void setSoutput(DataDefinitionDeclaration soutput) {
-        this.soutput = soutput;
+        this.sourceoutput = soutput;
     }
 
     public StepUsageDeclaration getDStep() {
-        return dstep;
+        return destinationstep;
     }
 
     public void setDStep(StepUsageDeclaration dstep) {
-        this.dstep = dstep;
+        this.destinationstep = dstep;
     }
 
     public DataDefinitionDeclaration getDOutput() {
-        return doutput;
+        return destinationinput;
     }
 
-    public void setDOutput(DataDefinitionDeclaration doutput) {
-        this.doutput = doutput;
+    public void setDOutput(DataDefinitionDeclaration input) {
+        this.destinationinput = input;
     }
 }
