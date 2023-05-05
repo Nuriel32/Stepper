@@ -43,7 +43,7 @@ public class DataDefinitionDeclarationImpl implements DataDefinitionDeclaration 
     }
 
 
-    public void setAliasName(String aliasName) {
-        aliasName = aliasName;
+    public void setAliasName(String AliasName) {
+        aliasName = AliasName;
     }
 }

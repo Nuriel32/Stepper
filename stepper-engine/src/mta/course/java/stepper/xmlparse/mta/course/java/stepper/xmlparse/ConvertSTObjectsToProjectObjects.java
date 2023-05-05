@@ -141,13 +141,16 @@ public class ConvertSTObjectsToProjectObjects {
 
 
         }
-      //  if ( flowDefinition.getFlowLevelAlias()!= null) { need to find what make execptions
+
+       if (stFlow.getSTFlowLevelAliasing()!= null) {
+
             flowDefinition.SetAliasFlowDefinition(CovnertSTflowlevelalias(flowDefinition, stFlow.getSTFlowLevelAliasing()));
             FlowLevelAliasContainer container = new FlowLevelAliasContainer();
             container.setContainer(flowDefinition.getFlowLevelAlias());
             container.Unloadcontainer();
+           System.out.println("kaki");
 
-        //}
+        }
         return flowDefinition;
     }
 

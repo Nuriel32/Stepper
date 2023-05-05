@@ -1,5 +1,9 @@
 package mta.course.java.stepper.flow.definition.api;
 
+import mta.course.java.stepper.dd.api.DataDefinition;
+import mta.course.java.stepper.step.api.DataDefinitionDeclaration;
+import mta.course.java.stepper.step.api.DataDefinitionDeclarationImpl;
+
 import java.util.List;
 
 public class FlowLevelAliasContainer {
@@ -16,7 +20,7 @@ public class FlowLevelAliasContainer {
     public void Unloadcontainer()
     {
         for (FlowLevelAlias single :Container ) {
-            single.getSource().setAliasName(single.getAlias());
+        single.source.setAliasName(single.alias);
 
         }
         //Container = null;

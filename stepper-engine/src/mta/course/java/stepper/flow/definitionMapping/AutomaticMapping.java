@@ -140,6 +140,7 @@ public class AutomaticMapping extends AbstractMappingDefinition {
             }
             return false;
         }
+        return false;
     }
 
     //need to implement invoke

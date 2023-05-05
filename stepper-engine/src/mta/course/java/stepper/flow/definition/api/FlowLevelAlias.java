@@ -1,6 +1,8 @@
 package mta.course.java.stepper.flow.definition.api;
 
 import mta.course.java.stepper.step.api.DataDefinitionDeclaration;
+import mta.course.java.stepper.step.api.DataDefinitionDeclarationImpl;
+import mta.course.java.stepper.step.api.StepDefinition;
 
 public class FlowLevelAlias {
     StepUsageDeclaration stepaliasname;
@@ -31,5 +33,11 @@ public class FlowLevelAlias {
 
     public void setAlias(String alias) {
         this.alias = alias;
+    }
+
+    public void Load()
+    {
+       StepDefinition step =  stepaliasname.getStepDefinition();
+
     }
 }
