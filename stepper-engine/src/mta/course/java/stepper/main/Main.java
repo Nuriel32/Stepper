@@ -9,6 +9,7 @@ import mta.course.java.stepper.flow.execution.runner.FLowExecutor;
 import mta.course.java.stepper.step.StepDefinitionRegistry;
 import mta.course.java.stepper.xmlparse.STStepper;
 import mta.course.java.stepper.xmlparse.Validator.SchemaBaesdJAXCreator;
+import mta.course.java.stepper.xmlparse.XMLLoader;
 import mta.course.java.stepper.xmlparse.mta.course.java.stepper.xmlparse.ConvertSTObjectsToProjectObjects;
 
 import javax.xml.bind.JAXBContext;
@@ -43,21 +44,14 @@ public class Main {
         fLowExecutor.executeFlow(flow2Execution1);
 // new mine
         List<FlowDefinition>  Flows = new ArrayList<FlowDefinition>();
-*/              File file;
-            STStepper stStepper = null;
-        try {
+*/       XMLLoader xmlLoader = new XMLLoader("C:\\Steptocheck\\ex1.xml");
+        STStepper stStepper = xmlLoader.load();
 
-             file = new File("C:\\Steptocheck\\ex1.xml");
-            JAXBContext jaxbContext = JAXBContext.newInstance(STStepper.class);
-
-            Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
-             stStepper = (STStepper) jaxbUnmarshaller.unmarshal(file);
-            System.out.println(stStepper);
-
-        } catch (JAXBException e) {
-            e.printStackTrace();
+        if (stStepper == null) {
+            System.out.println("Failed to load STStepper. Log: \n" + xmlLoader.getLog());
+        } else {
+            System.out.println("STStepper loaded successfully.");
         }
-
 
         ConvertSTObjectsToProjectObjects converter = new ConvertSTObjectsToProjectObjects();
         converter.setStsteper(stStepper);
