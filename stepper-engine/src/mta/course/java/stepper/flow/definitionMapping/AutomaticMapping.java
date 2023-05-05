@@ -66,10 +66,10 @@ public class AutomaticMapping extends AbstractMappingDefinition {
         int stepsAmount=outOfFlowSteps.size();
         int stepIdx=0;
         int freeInpIdx=0;
-        for(i=stepIdx; i<stepsAmount; i++) {
+        for(int i=stepIdx; i<stepsAmount; i++) {
             int numInpInStep=outOfFlowSteps.get(i).getStepDefinition().inputs().size();
             int inputIdx=0;
-            for(j=inputIdx;j<numInpInStep;j++) {
+            for(int j=inputIdx;j<numInpInStep;j++) {
                 theFlowFreeInputs.set(freeInpIdx,
                         outOfFlowSteps.get(i).getStepDefinition().inputs().get(j));
                 freeInpIdx += 1;
@@ -86,10 +86,11 @@ public class AutomaticMapping extends AbstractMappingDefinition {
         int stepsAmount=outOfFlowSteps.size();
         int stepIdx=0;
         int freeOutputIdx=0;
-        for(i=stepIdx; i<stepsAmount; i++) {
+        int freeInpIdx =0;
+        for(int i=stepIdx; i<stepsAmount; i++) {
             int numInpInStep=outOfFlowSteps.get(i).getStepDefinition().outputs().size();
             int outputIdx=0;
-            for(j=outputIdx;j<numInpInStep;j++) {
+            for(int j=outputIdx;j<numInpInStep;j++) {
                 theFlowFreeOutputs.set(freeOutputIdx,
                         outOfFlowSteps.get(i).getStepDefinition().outputs().get(j));
                 freeInpIdx += 1;
