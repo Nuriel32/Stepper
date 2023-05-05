@@ -57,7 +57,9 @@ public class Main {
         ConvertSTObjectsToProjectObjects converter = new ConvertSTObjectsToProjectObjects();
         converter.setStsteper(stStepper);
        List<FlowDefinition> flows = converter.convertSTFlowsToFlowDefinitions(stStepper.getSTFlows());
-       flows.get(0).SetAutomaticMapping(new AutomaticMapping());
+
+       AutomaticMapping automaticMapping = new AutomaticMapping();
+       automaticMapping.stepsOutOfFlow(flows.get(0));
         System.out.println("kaki");
 
 
