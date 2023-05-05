@@ -22,4 +22,5 @@ public interface FlowDefinition {
     void SetAliasFlowDefinition(List<FlowLevelAlias> flowLevelAlias);
     void addFlowOutput(String outputName);
     AutomaticMapping getAutomaticMapping();
+   void  SetCustomMappingFlowDefinition(List<CustomMappingOBJ> tosetfor);
 }

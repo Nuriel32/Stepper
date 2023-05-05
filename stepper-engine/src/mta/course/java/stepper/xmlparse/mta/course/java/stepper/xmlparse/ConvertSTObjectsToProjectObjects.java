@@ -151,6 +151,12 @@ public class ConvertSTObjectsToProjectObjects implements ConvertSTAPI {
            System.out.println("kaki");
 
         }
+
+       if(stFlow.getSTCustomMappings()!=null) {
+           CustomMappingOBJContainer customcontainer = new CustomMappingOBJContainer();
+           flowDefinition.SetCustomMappingFlowDefinition(convertSTCustomMappingsToCustomMappingOBJs(flowDefinition,stFlow.getStCustomMappings());
+
+       }
         return flowDefinition;
     }
 
@@ -230,7 +236,7 @@ public class ConvertSTObjectsToProjectObjects implements ConvertSTAPI {
 
 /**
  *  convert a single custom mapping  **/
-public CustomMappingOBJ convertSTCustomMappingToCustomMappingOBJ(STCustomMapping stCustomMapping, FlowDefinition flowDefinition) {
+public CustomMappingOBJ convertSTCustomMappingToCustomMappingOBJ(FlowDefinition flowDefinition,STCustomMapping stCustomMapping) {
     CustomMappingOBJ customMappingOBJ = new CustomMappingOBJ();
 
     // Find the source step and output
@@ -253,11 +259,11 @@ public CustomMappingOBJ convertSTCustomMappingToCustomMappingOBJ(STCustomMapping
     return customMappingOBJ;
 }
   /** Convert List of STCustomMapping to List<CustomMappingOBJ> **/
-        public List<CustomMappingOBJ> convertSTCustomMappingsToCustomMappingOBJs(STCustomMappings stCustomMappings, FlowDefinition flowDefinition) {
+        public List<CustomMappingOBJ> convertSTCustomMappingsToCustomMappingOBJs(FlowDefinition flowDefinition,STCustomMappings stCustomMappings) {
             List<CustomMappingOBJ> customMappingOBJs = new ArrayList<>();
 
             for (STCustomMapping stCustomMapping : stCustomMappings.getStCustomMapping()) {
-                CustomMappingOBJ customMappingOBJ = convertSTCustomMappingToCustomMappingOBJ(stCustomMapping, flowDefinition);
+                CustomMappingOBJ customMappingOBJ = convertSTCustomMappingToCustomMappingOBJ(flowDefinition,stCustomMapping);
                 customMappingOBJs.add(customMappingOBJ);
             }
 

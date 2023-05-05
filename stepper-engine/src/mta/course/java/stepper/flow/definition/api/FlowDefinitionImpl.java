@@ -18,6 +18,7 @@ public class FlowDefinitionImpl implements FlowDefinition {
     private final List<StepUsageDeclaration> steps;
     List<FlowLevelAlias> FlowLevelAlias;
     AutomaticMapping automaticMapping;
+    List<CustomMappingOBJ> CustomMapping;
 
     public FlowDefinitionImpl(String name, String description) {
         this.name = name;
@@ -75,4 +76,7 @@ public class FlowDefinitionImpl implements FlowDefinition {
     {
     return this.automaticMapping;
     }
+    @Override
+    public  void SetCustomMappingFlowDefinition(List<CustomMappingOBJ> tosetfor){
+        this.CustomMapping = tosetfor ;}
 }
