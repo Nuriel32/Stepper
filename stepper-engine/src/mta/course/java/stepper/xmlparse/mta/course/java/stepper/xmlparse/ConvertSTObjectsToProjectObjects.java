@@ -258,7 +258,7 @@ public CustomMappingOBJ convertSTCustomMappingToCustomMappingOBJ(FlowDefinition 
     }
     DataDefinitionDeclaration destDataDefinitionDeclaration = findDataDefinitionDeclarationByAliasName(destStepUsageDeclaration, stCustomMapping.getTargetData());
     if(destDataDefinitionDeclaration == null){
-        destDataDefinitionDeclaration = findDataDefinitionDeclarationByName(sourceStepUsageDeclaration, stCustomMapping.getTargetData());
+        destDataDefinitionDeclaration = findDataDefinitionDeclarationByName(destStepUsageDeclaration, stCustomMapping.getTargetData());
     }
     // Set the source and destination steps and outputs
     customMappingOBJ.setSStep(sourceStepUsageDeclaration);
