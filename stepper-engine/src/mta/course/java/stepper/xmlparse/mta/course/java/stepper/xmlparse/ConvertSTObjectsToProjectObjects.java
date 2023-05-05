@@ -261,10 +261,10 @@ public CustomMappingOBJ convertSTCustomMappingToCustomMappingOBJ(FlowDefinition 
         destDataDefinitionDeclaration = findDataDefinitionDeclarationByName(destStepUsageDeclaration, stCustomMapping.getTargetData());
     }
     // Set the source and destination steps and outputs
-    customMappingOBJ.setSStep(sourceStepUsageDeclaration);
-    customMappingOBJ.setSoutput(sourceDataDefinitionDeclaration);
-    customMappingOBJ.setDStep(destStepUsageDeclaration);
-    customMappingOBJ.setDOutput(destDataDefinitionDeclaration);
+    customMappingOBJ.setSourcestep(sourceStepUsageDeclaration);
+    customMappingOBJ.setSourceoutput(sourceDataDefinitionDeclaration);
+    customMappingOBJ.setDestinationstep(destStepUsageDeclaration);
+    customMappingOBJ.setDestinationinput(destDataDefinitionDeclaration);
 
     return customMappingOBJ;
 }
