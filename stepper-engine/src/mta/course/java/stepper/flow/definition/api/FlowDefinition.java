@@ -1,6 +1,7 @@
 package mta.course.java.stepper.flow.definition.api;
 
 import mta.course.java.stepper.flow.definitionMapping.AutomaticMapping;
+import mta.course.java.stepper.flow.definitionMapping.CustomMapping;
 import mta.course.java.stepper.step.api.DataDefinitionDeclaration;
 
 import java.util.List;
@@ -23,4 +24,5 @@ public interface FlowDefinition {
     void addFlowOutput(String outputName);
     AutomaticMapping getAutomaticMapping();
    void  SetCustomMappingFlowDefinition(List<CustomMappingOBJ> tosetfor);
+    List<CustomMappingOBJ> getCustomMapping();
 }

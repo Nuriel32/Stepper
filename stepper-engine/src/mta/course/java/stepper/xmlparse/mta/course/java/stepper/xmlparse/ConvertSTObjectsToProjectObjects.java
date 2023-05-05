@@ -154,8 +154,9 @@ public class ConvertSTObjectsToProjectObjects implements ConvertSTAPI {
 
        if(stFlow.getSTCustomMappings()!=null) {
            CustomMappingOBJContainer customcontainer = new CustomMappingOBJContainer();
+          List<CustomMappingOBJ> a =  convertSTCustomMappingsToCustomMappingOBJs(flowDefinition,stFlow.getStCustomMappings());
            flowDefinition.SetCustomMappingFlowDefinition(convertSTCustomMappingsToCustomMappingOBJs(flowDefinition,stFlow.getStCustomMappings()));
-
+           customcontainer.setContainer(flowDefinition.getCustomMapping());
        }
         return flowDefinition;
     }
@@ -241,15 +242,24 @@ public CustomMappingOBJ convertSTCustomMappingToCustomMappingOBJ(FlowDefinition 
 
     // Find the source step and output
     StepUsageDeclaration sourceStepUsageDeclaration = findStepUsageDeclarationByAliasName(flowDefinition, stCustomMapping.getSourceStep());
-
+    if(sourceStepUsageDeclaration== null){
+        sourceStepUsageDeclaration = findStepUsageDeclarationByName(flowDefinition,stCustomMapping.getSourceStep());
+    }
     DataDefinitionDeclaration sourceDataDefinitionDeclaration = findDataDefinitionDeclarationByAliasName(sourceStepUsageDeclaration, stCustomMapping.getSourceData());
-
+    if(sourceDataDefinitionDeclaration == null){
+        sourceDataDefinitionDeclaration = findDataDefinitionDeclarationByName(sourceStepUsageDeclaration, stCustomMapping.getSourceData());
+    }
 
     // Find the destination step and output
     StepUsageDeclaration destStepUsageDeclaration = findStepUsageDeclarationByAliasName(flowDefinition, stCustomMapping.getTargetStep());
-
+    if(destStepUsageDeclaration==null)
+    {
+        destStepUsageDeclaration = findStepUsageDeclarationByAliasName(flowDefinition,stCustomMapping.getTargetStep());
+    }
     DataDefinitionDeclaration destDataDefinitionDeclaration = findDataDefinitionDeclarationByAliasName(destStepUsageDeclaration, stCustomMapping.getTargetData());
-
+    if(destDataDefinitionDeclaration == null){
+        destDataDefinitionDeclaration = findDataDefinitionDeclarationByName(sourceStepUsageDeclaration, stCustomMapping.getTargetData());
+    }
     // Set the source and destination steps and outputs
     customMappingOBJ.setSStep(sourceStepUsageDeclaration);
     customMappingOBJ.setSoutput(sourceDataDefinitionDeclaration);
@@ -271,12 +281,12 @@ public CustomMappingOBJ convertSTCustomMappingToCustomMappingOBJ(FlowDefinition 
         }
 
     public StepUsageDeclaration findStepUsageDeclarationByAliasName(FlowDefinition flowDefinition, String aliasName) {
-        for (FlowLevelAlias flowLevelAlias : flowDefinition.getFlowLevelAlias()) {
-            if (flowLevelAlias.getAlias().equals(aliasName)) {
-                return findStepUsageDeclarationByName(flowDefinition, flowLevelAlias.getAlias());
+        for (StepUsageDeclaration stepUsageDeclaration : flowDefinition.getFlowSteps()) {
+            if (stepUsageDeclaration.getStepDefinition().getAliasName().equals(aliasName)) {
+                return stepUsageDeclaration;
             }
         }
-        return null;
+        return null; // Return null if the step with the given name is not found in the flow's steps
     }
 
     public DataDefinitionDeclaration findDataDefinitionDeclarationByAliasName(StepUsageDeclaration stepUsageDeclaration, String aliasName) {

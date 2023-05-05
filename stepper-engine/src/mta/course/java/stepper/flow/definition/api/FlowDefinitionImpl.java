@@ -79,4 +79,10 @@ public class FlowDefinitionImpl implements FlowDefinition {
     @Override
     public  void SetCustomMappingFlowDefinition(List<CustomMappingOBJ> tosetfor){
         this.CustomMapping = tosetfor ;}
+
+    @Override
+    public  List<CustomMappingOBJ>  getCustomMapping()
+    {
+        return CustomMapping;
+    }
 }

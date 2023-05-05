@@ -16,10 +16,10 @@ import java.util.stream.Collectors;
 public class CollectFilesInFolder extends AbstractStepDefinition {
     public CollectFilesInFolder() {
         super("Collect Files In Folder", true);
-        addInput(new DataDefinitionDeclarationImpl("Folder_Name", DataNecessity.MANDATORY, "Folder name to scan", DataDefinitionRegistry.STRING));
-        addInput(new DataDefinitionDeclarationImpl("Filter", DataNecessity.OPTIONAL, "Filter Only these Files", DataDefinitionRegistry.STRING));
-        addOutput(new DataDefinitionDeclarationImpl("File_List", DataNecessity.NA, "Files list", DataDefinitionRegistry.FILE));
-        addOutput(new DataDefinitionDeclarationImpl("Total_Found", DataNecessity.NA, "Total files found", DataDefinitionRegistry.DOUBLE));
+        addInput(new DataDefinitionDeclarationImpl("FOLDER_NAME", DataNecessity.MANDATORY, "Folder name to scan", DataDefinitionRegistry.STRING));
+        addInput(new DataDefinitionDeclarationImpl("FILTER", DataNecessity.OPTIONAL, "Filter Only these Files", DataDefinitionRegistry.STRING));
+        addOutput(new DataDefinitionDeclarationImpl("FILES_LIST", DataNecessity.NA, "Files list", DataDefinitionRegistry.FILE));
+        addOutput(new DataDefinitionDeclarationImpl("TOTAL_FOUND", DataNecessity.NA, "Total files found", DataDefinitionRegistry.DOUBLE));
     }
 
 
