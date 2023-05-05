@@ -4,6 +4,7 @@ import mta.course.java.stepper.dd.api.AbstractDataDefinition;
 import mta.course.java.stepper.flow.definition.api.FlowDefinition;
 import mta.course.java.stepper.flow.definition.api.FlowDefinitionImpl;
 import mta.course.java.stepper.flow.definition.api.StepUsageDeclarationImpl;
+import mta.course.java.stepper.flow.definitionMapping.AutomaticMapping;
 import mta.course.java.stepper.flow.execution.FlowExecution;
 import mta.course.java.stepper.flow.execution.runner.FLowExecutor;
 import mta.course.java.stepper.step.StepDefinitionRegistry;
@@ -56,6 +57,7 @@ public class Main {
         ConvertSTObjectsToProjectObjects converter = new ConvertSTObjectsToProjectObjects();
         converter.setStsteper(stStepper);
        List<FlowDefinition> flows = converter.convertSTFlowsToFlowDefinitions(stStepper.getSTFlows());
+       flows.get(0).SetAutomaticMapping(new AutomaticMapping());
         System.out.println("kaki");
 
 

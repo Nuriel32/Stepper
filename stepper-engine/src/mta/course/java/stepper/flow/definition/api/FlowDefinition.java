@@ -23,6 +23,7 @@ public interface FlowDefinition {
     void SetAliasFlowDefinition(List<FlowLevelAlias> flowLevelAlias);
     void addFlowOutput(String outputName);
     AutomaticMapping getAutomaticMapping();
+    void SetAutomaticMapping(AutomaticMapping automaticmapping);
    void  SetCustomMappingFlowDefinition(List<CustomMappingOBJ> tosetfor);
     List<CustomMappingOBJ> getCustomMapping();
 }

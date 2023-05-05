@@ -85,4 +85,9 @@ public class FlowDefinitionImpl implements FlowDefinition {
     {
         return CustomMapping;
     }
+
+    public void SetAutomaticMapping(AutomaticMapping automaticMapping)
+    {
+        this.automaticMapping = automaticMapping;
+    }
 }
