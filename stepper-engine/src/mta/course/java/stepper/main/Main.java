@@ -57,11 +57,11 @@ public class Main {
         } catch (JAXBException e) {
             e.printStackTrace();
         }
-        System.out.println("kaki");
+
 
         ConvertSTObjectsToProjectObjects converter = new ConvertSTObjectsToProjectObjects();
         converter.setStsteper(stStepper);
        List<FlowDefinition> flows = converter.convertSTFlowsToFlowDefinitions(stStepper.getSTFlows());
-        System.out.println("kaki2");
+
     }
 }
