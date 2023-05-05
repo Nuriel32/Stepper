@@ -17,7 +17,7 @@ import java.util.List;
 
 import java.util.ArrayList;
 import java.util.List;
-public class ConvertSTObjectsToProjectObjects {
+public class ConvertSTObjectsToProjectObjects implements ConvertSTAPI {
     public STStepper ststeper;
     private Map<String, Supplier<StepDefinition>> stepSuppliers;
     private Map<String,STStepInFlow> mapstep = new HashMap<>();
