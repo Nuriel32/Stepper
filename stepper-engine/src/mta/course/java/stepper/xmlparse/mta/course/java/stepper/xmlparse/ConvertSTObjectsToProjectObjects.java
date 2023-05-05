@@ -154,7 +154,7 @@ public class ConvertSTObjectsToProjectObjects implements ConvertSTAPI {
 
        if(stFlow.getSTCustomMappings()!=null) {
            CustomMappingOBJContainer customcontainer = new CustomMappingOBJContainer();
-           flowDefinition.SetCustomMappingFlowDefinition(convertSTCustomMappingsToCustomMappingOBJs(flowDefinition,stFlow.getStCustomMappings());
+           flowDefinition.SetCustomMappingFlowDefinition(convertSTCustomMappingsToCustomMappingOBJs(flowDefinition,stFlow.getStCustomMappings()));
 
        }
         return flowDefinition;
