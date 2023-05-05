@@ -1,5 +1,6 @@
 package mta.course.java.stepper.flow.definition.api;
 
+import mta.course.java.stepper.flow.definitionMapping.AutomaticMapping;
 import mta.course.java.stepper.step.api.DataDefinitionDeclaration;
 
 import java.util.List;
@@ -20,5 +21,5 @@ public interface FlowDefinition {
     public List<DataDefinitionDeclaration> getFlowFreeInputs();
     void SetAliasFlowDefinition(List<FlowLevelAlias> flowLevelAlias);
     void addFlowOutput(String outputName);
-
+    AutomaticMapping getAutomaticMapping();
 }

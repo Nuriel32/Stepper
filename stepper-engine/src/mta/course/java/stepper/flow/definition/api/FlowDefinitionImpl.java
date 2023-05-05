@@ -1,5 +1,6 @@
 package mta.course.java.stepper.flow.definition.api;
 
+import mta.course.java.stepper.flow.definitionMapping.AutomaticMapping;
 import mta.course.java.stepper.step.api.DataDefinitionDeclaration;
 
 import java.util.ArrayList;
@@ -16,6 +17,7 @@ public class FlowDefinitionImpl implements FlowDefinition {
     private final List<String> flowOutputs;
     private final List<StepUsageDeclaration> steps;
     List<FlowLevelAlias> FlowLevelAlias;
+    AutomaticMapping automaticMapping;
 
     public FlowDefinitionImpl(String name, String description) {
         this.name = name;
@@ -68,5 +70,9 @@ public class FlowDefinitionImpl implements FlowDefinition {
     public void SetAliasFlowDefinition(List<FlowLevelAlias> flowLevelAlias){
         FlowLevelAlias = flowLevelAlias;
     }
-
+    @Override
+    public AutomaticMapping  getAutomaticMapping()
+    {
+    return this.automaticMapping;
+    }
 }

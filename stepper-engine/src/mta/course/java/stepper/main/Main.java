@@ -47,7 +47,7 @@ public class Main {
             STStepper stStepper = null;
         try {
 
-             file = new File("D:\\Steptocheck\\ex1.xml");
+             file = new File("C:\\Steptocheck\\ex1.xml");
             JAXBContext jaxbContext = JAXBContext.newInstance(STStepper.class);
 
             Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
@@ -62,6 +62,8 @@ public class Main {
         ConvertSTObjectsToProjectObjects converter = new ConvertSTObjectsToProjectObjects();
         converter.setStsteper(stStepper);
        List<FlowDefinition> flows = converter.convertSTFlowsToFlowDefinitions(stStepper.getSTFlows());
+        System.out.println("kaki");
+
 
     }
 }
