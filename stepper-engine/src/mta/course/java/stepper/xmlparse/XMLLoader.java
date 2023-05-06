@@ -12,15 +12,18 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.StringReader;
 import java.nio.charset.StandardCharsets;
+import java.util.HashSet;
 import java.util.Scanner;
+import java.util.Set;
 
 public class XMLLoader {
 
     private String log;
     private File xmlFile;
-
+    STStepper stStepper;
     public XMLLoader(String xmlFilePath) {
         xmlFile = new File(xmlFilePath);
+
     }
 
     public STStepper load() {
@@ -34,6 +37,7 @@ public class XMLLoader {
             Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
             STStepper stStepper = (STStepper) jaxbUnmarshaller.unmarshal(xmlFile);
             System.out.println(stStepper);
+            this.stStepper = stStepper;
             return stStepper;
 
         } catch (JAXBException e) {
@@ -67,6 +71,24 @@ public class XMLLoader {
                 return scanner.useDelimiter("\\A").next();
             }
         }
+    }
+
+    public boolean validateSTFlowNames() {
+        boolean isValid = true;
+        Set<String> flowNames = new HashSet<>();
+
+        for (STFlow stFlow : stStepper.getStFlows().getStFlow()) {
+            String flowName = stFlow.getName();
+
+            if (flowNames.contains(flowName)) {
+                log += "Duplicate STFlow name found: " + flowName + ". Flow names should be unique.\n";
+                isValid = false;
+            } else {
+                flowNames.add(flowName);
+            }
+        }
+
+        return isValid;
     }
     public String getLog() {
         return log;

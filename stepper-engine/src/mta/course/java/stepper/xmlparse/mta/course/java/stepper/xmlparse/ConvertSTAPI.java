@@ -9,7 +9,9 @@ import mta.course.java.stepper.xmlparse.*;
 
 import java.util.List;
 
+
 public interface ConvertSTAPI {
+    public String getLogs();
     /**
      * Sets the STStepper object to be used for conversion.
      *
