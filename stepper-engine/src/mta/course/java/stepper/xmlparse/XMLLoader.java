@@ -90,16 +90,58 @@ public class XMLLoader {
 
         return isValid;
     }
+    /***
+     * main func
+     * ***/
     public boolean validator() throws IOException {
       boolean validXML = validateXML();
       if(!validXML){return false;}
         boolean validstflow = validateSTFlowNames();
       if(!validstflow){return false;}
+
+      boolean validOutputs = validateAllFlowOutputNames(stStepper.getSTFlows());
+      if(!validOutputs){return false;}
+
+
+
       return true;
 
     }
     public String getLog() {
         return log;
     }
+
+    public boolean validateFlowOutputNames(STFlow stFlow) {
+        boolean isValid = true;
+        Set<String> flowOutputNames = new HashSet<>();
+
+        String stFlowOutput = stFlow.getStFlowOutput();
+        String[] outputNames = stFlowOutput.split(",");
+
+        for (String outputName : outputNames) {
+            String trimmedOutputName = outputName.trim();
+            if (flowOutputNames.contains(trimmedOutputName)) {
+                log += "Duplicate STFlowOutput name found in flow " + stFlow.getName() + ": " + trimmedOutputName + ". STFlowOutput names should be unique within a flow.\n";
+                isValid = false;
+            } else {
+                flowOutputNames.add(trimmedOutputName);
+            }
+        }
+
+        return isValid;
+    }
+
+    public boolean validateAllFlowOutputNames(STFlows stFlows) {
+        boolean isValid = true;
+
+        for (STFlow stFlow : stFlows.getStFlow()) {
+            if (!validateFlowOutputNames(stFlow)) {
+                isValid = false;
+            }
+        }
+
+        return isValid;
+    }
 }
+
 

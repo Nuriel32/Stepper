@@ -134,6 +134,7 @@ public class ConvertSTObjectsToProjectObjects implements ConvertSTAPI {
         this.setAliasToStepNameMap(stFlow.getStStepsInFlow().getSTStepInFlow());
         this.setStepNames();
 
+
         FlowDefinition flowDefinition = new FlowDefinitionImpl(stFlow.getName(), stFlow.getSTFlowDescription());
 
         // Convert ST-StepInFlow to StepUsageDeclaration and add to the FlowDefinition
@@ -156,6 +157,8 @@ public class ConvertSTObjectsToProjectObjects implements ConvertSTAPI {
 
         }
 
+
+
        if (stFlow.getSTFlowLevelAliasing()!= null) {
            boolean valid =  validateSTFlowLevelAliases(stFlow.getSTFlowLevelAliasing());
            this.vaildator = valid;
@@ -164,8 +167,8 @@ public class ConvertSTObjectsToProjectObjects implements ConvertSTAPI {
                FlowLevelAliasContainer container = new FlowLevelAliasContainer();
                container.setContainer(flowDefinition.getFlowLevelAlias());
                flowDefinition.setFlowaliascontainer(container);
-               //container.Unloadcontainer();
-               System.out.println("kaki");
+               container.Unloadcontainer();
+
            }
 
         }
@@ -176,6 +179,10 @@ public class ConvertSTObjectsToProjectObjects implements ConvertSTAPI {
            flowDefinition.SetCustomMappingFlowDefinition(convertSTCustomMappingsToCustomMappingOBJs(flowDefinition,stFlow.getStCustomMappings()));
            customcontainer.setContainer(flowDefinition.getCustomMapping());
        }
+        if(!this.validateSTFlowOutputs(stFlow))
+        {
+            this.vaildator=false;
+        }
         return flowDefinition;
     }
 
@@ -217,11 +224,11 @@ public class ConvertSTObjectsToProjectObjects implements ConvertSTAPI {
                     flowLevelAliases.add(flowLevelAlias);
                 } else {
                     // Handle the case when the DataDefinitionDeclaration is not found in the step's data definitions
-                    System.err.println("DataDefinitionDeclaration with the name '" + stFlowLevelAlias.getSourceDataName() + "' not found in the step.");
+                log +=   "step  with the name " + stFlowLevelAlias.getSourceDataName() + "' not found in the step.";
                 }
             } else {
                 // Handle the case when the step is not found in the flow's steps
-                System.err.println("Step with the name '" + stFlowLevelAlias.getStep() + "' not found in the flow.");
+                log += "Step with the name '" + stFlowLevelAlias.getStep() + "' not found in the flow.";
             }
         }
         return flowLevelAliases;
@@ -359,6 +366,33 @@ public CustomMappingOBJ convertSTCustomMappingToCustomMappingOBJ(FlowDefinition 
         }
         return isValid;
     }
+    public boolean validateSTFlowOutputs(STFlow stFlow) {
+        boolean isValid = true;
+        String stFlowOutput = stFlow.getStFlowOutput();
+        String[] outputNames = stFlowOutput.split(",");
+
+        for (String outputName : outputNames) {
+            String trimmedOutputName = outputName.trim();
+            boolean foundInMapStep = mapstep.containsKey(trimmedOutputName);
+            boolean foundInAliaserHelper = false;
+            boolean foundInFromAlias2StepName = fromalias2stepname.containsKey(trimmedOutputName);
+
+            for (List<String> aliases : aliaserhelper.values()) {
+                if (aliases.contains(trimmedOutputName)) {
+                    foundInAliaserHelper = true;
+                    break;
+                }
+            }
+
+            if (!foundInMapStep && !foundInAliaserHelper && !foundInFromAlias2StepName) {
+                log += "STFlowOutput name not found in the STStepInFlow map, for flow " + stFlow.getName() + ": " + trimmedOutputName + ". Ensure all output names are present .\n";
+                isValid = false;
+            }
+        }
+
+        return isValid;
+    }
+
 }
 
 

@@ -62,7 +62,7 @@ public class FlowLevelAlias {
     public boolean validaliasing()
     {
         valid=true;
-        if(source==null) {
+        if(source==null||stepaliasname==null) {
             valid=false;
             return false;
         }

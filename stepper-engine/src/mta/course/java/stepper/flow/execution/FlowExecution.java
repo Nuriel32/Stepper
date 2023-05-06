@@ -10,6 +10,7 @@ public class FlowExecution {
     private final FlowDefinition flowDefinition;
     private Duration totalTime;
     private FlowExecutionResult flowExecutionResult;
+    private String logs;
 
     // lots more data that needed to be stored while flow is being executed...
 
