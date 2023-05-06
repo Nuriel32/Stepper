@@ -25,8 +25,8 @@ public class CollectFilesInFolder extends AbstractStepDefinition {
 
     @Override
     public StepResult invoke(StepExecutionContext context) {
-        String folderName = context.getDataValue("Folder_Name", String.class);
-        String filter = context.getDataValue("Filter", String.class);
+        String folderName = context.getDataValue("FOLDER_NAME", String.class);
+        String filter = context.getDataValue("FILTER", String.class);
         File folder = new File(folderName);
 
         File[] files = folder.listFiles((dir, name) -> filter == null || name.endsWith(filter));
