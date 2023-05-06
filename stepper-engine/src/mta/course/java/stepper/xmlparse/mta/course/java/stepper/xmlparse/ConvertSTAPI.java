@@ -100,4 +100,11 @@ public interface ConvertSTAPI {
      * @return true if the alias is in the list, false otherwise.
      */
     public boolean isAliasInList(String name, String alias);
+/** this function setname of steps that we have in the system**/
+    public void setStepNames();
+        /**
+         * This function checks if the STSteps that recevied from the xml file exist in the system.
+         */
+         boolean validateSTFlowLevelAliases(STFlowLevelAliasing stFlowLevelAliasing);
+    boolean isValidSTSteps(STStepsInFlow stStepsInFlow);
 }

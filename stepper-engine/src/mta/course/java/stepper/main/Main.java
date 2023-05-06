@@ -58,8 +58,7 @@ public class Main {
         converter.setStsteper(stStepper);
        List<FlowDefinition> flows = converter.convertSTFlowsToFlowDefinitions(stStepper.getSTFlows());
 
-       AutomaticMapping automaticMapping = new AutomaticMapping();
-       automaticMapping.stepsOutOfFlow(flows.get(0));
+
         System.out.println("kaki");
 
 

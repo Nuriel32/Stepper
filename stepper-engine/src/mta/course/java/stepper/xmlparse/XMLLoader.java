@@ -3,59 +3,73 @@ import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Unmarshaller;
 import java.io.File;
+import javax.xml.XMLConstants;
+import javax.xml.transform.stream.StreamSource;
+import javax.xml.validation.Schema;
+import javax.xml.validation.SchemaFactory;
+import javax.xml.validation.Validator;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.StringReader;
+import java.nio.charset.StandardCharsets;
+import java.util.Scanner;
 
 public class XMLLoader {
-    private String log = "";
-    private String filePath;
 
-    public XMLLoader(String filePath) {
-        this.filePath = filePath;
-    }/**
-     * The XMLLoader class is responsible for loading XML files and deserializing
-     * the content into an STStepper object.
-     * <p>
-     * It contains a log data member that stores any exceptions that might occur
-     * during the loading process.
-     * <p>
-     * Example usage:
-     * <pre>
-     *     XMLLoader xmlLoader = new XMLLoader("C:\\Steptocheck\\ex1.xml");
-     *     STStepper stStepper = xmlLoader.load();
-     *     if (stStepper == null) {
-     *         System.out.println("Failed to load STStepper. Log: \n" + xmlLoader.getLog());
-     *     } else {
-     *         System.out.println("STStepper loaded successfully.");
-     *     }
-     * </pre>
-     */
-    public STStepper load() {
-        STStepper stStepper = null;
+    private String log;
+    private File xmlFile;
 
-        try {
-            File file = new File(filePath);
-            JAXBContext jaxbContext = JAXBContext.newInstance(STStepper.class);
-
-            Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
-            stStepper = (STStepper) jaxbUnmarshaller.unmarshal(file);
-            System.out.println(stStepper);
-
-        } catch (JAXBException e) {
-            log += "JAXBException: " + e.getMessage() + "\n";
-            e.printStackTrace();
-        }
-
-        return stStepper;
+    public XMLLoader(String xmlFilePath) {
+        xmlFile = new File(xmlFilePath);
     }
 
+    public STStepper load() {
+        try {
+            if (!validateXML()) {
+                log += "XML file is not valid according to the schema.\n";
+                return null;
+            }
+
+            JAXBContext jaxbContext = JAXBContext.newInstance(STStepper.class);
+            Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
+            STStepper stStepper = (STStepper) jaxbUnmarshaller.unmarshal(xmlFile);
+            System.out.println(stStepper);
+            return stStepper;
+
+        } catch (JAXBException e) {
+            log += "JAXBException occurred: " + e.getMessage() + "\n";
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    private boolean validateXML() {
+        try {
+            String schemaContent = loadSchemaContent();
+            SchemaFactory schemaFactory = SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
+            Schema schema = schemaFactory.newSchema(new StreamSource(new StringReader(schemaContent)));
+            Validator validator = schema.newValidator();
+            validator.validate(new StreamSource(xmlFile));
+            return true;
+        } catch (Exception e) {
+            log += "Validation exception occurred: " + e.getMessage() + "\n";
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    private String loadSchemaContent() throws IOException {
+        try (InputStream inputStream = getClass().getResourceAsStream("/resources/Stepper-V1.xsd")) {
+            if (inputStream == null) {
+                throw new IOException("Schema file not found");
+            }
+            try (Scanner scanner = new Scanner(inputStream, StandardCharsets.UTF_8.name())) {
+                return scanner.useDelimiter("\\A").next();
+            }
+        }
+    }
     public String getLog() {
         return log;
     }
-
-    public String getFilePath() {
-        return filePath;
-    }
-
-    public void setFilePath(String filePath) {
-        this.filePath = filePath;
-    }
 }
+

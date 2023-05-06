@@ -8,11 +8,9 @@ import mta.course.java.stepper.step.impl.*;
 import mta.course.java.stepper.xmlparse.*;
 import mta.course.java.stepper.flow.definition.api.*;
 import mta.course.java.stepper.step.api.*;
-import java.util.HashMap;
-import java.util.Map;
+
+import java.util.*;
 import java.util.function.Supplier;
-import java.util.ArrayList;
-import java.util.List;
 
 
 import java.util.ArrayList;
@@ -24,6 +22,8 @@ public class ConvertSTObjectsToProjectObjects implements ConvertSTAPI {
     private Map<String,List<String>> aliaserhelper = new HashMap<>();
 
     private Map<String,String> fromalias2stepname = new HashMap<>();
+    private String log;
+    private Set<String> stepNames;
 
 
 
@@ -58,6 +58,28 @@ public class ConvertSTObjectsToProjectObjects implements ConvertSTAPI {
             }
         }
     }
+    public void setStepNames() {
+        stepNames = new HashSet<>();
+        stepNames.add("Collect Files In Folder");
+        stepNames.add("CSV Exporter");
+        stepNames.add("File Dumper");
+        stepNames.add("Files Content Extractor");
+        stepNames.add("Files Deleter");
+        stepNames.add("Files Renamer");
+        stepNames.add("Properties Exporter");
+        stepNames.add("Spend Some Time");
+    }
+
+    public boolean isValidSTSteps(STStepsInFlow stStepsInFlow) {
+        boolean isValid = true;
+        for (STStepInFlow stStepInFlow : stStepsInFlow.getStStepInFlow()) {
+            if (!stepNames.contains(stStepInFlow.getName())) {
+                isValid = false;
+                log += "Invalid step name found: " + stStepInFlow.getName() + ". This step does not exist in the system.\n";
+            }
+        }
+        return isValid;
+    }
 
     public void SetMapSupllier(){
             stepSuppliers = new HashMap<>();
@@ -71,7 +93,21 @@ public class ConvertSTObjectsToProjectObjects implements ConvertSTAPI {
             stepSuppliers.put("Spend Some Time", () -> new SpendSomeTime("Time_To_Spend",true));
         }
 
+    public  boolean validateSTFlowLevelAliases(STFlowLevelAliasing stFlowLevelAliasing) {
+        boolean isValid = true;
 
+        for (STFlowLevelAlias stFlowLevelAlias : stFlowLevelAliasing.getStFlowLevelAlias()) {
+            String stepName = stFlowLevelAlias.getStep();
+            String alias = stFlowLevelAlias.getAlias();
+
+            if (!isAliasInList(stepName, alias) && !stepNames.contains(stepName)) {
+                log += "Invalid step name found in STFlowLevelAlias: " + stepName + ". This step does not exist in the alias mapping or step names.\n";
+                isValid = false;
+            }
+        }
+
+        return isValid;
+    }
 
         /**
          * For each step in flow add to some step his alias name in the aliashelper mapping.
@@ -118,7 +154,7 @@ public class ConvertSTObjectsToProjectObjects implements ConvertSTAPI {
         this.SetMapSupllier();
         this.setAliaserHelper(stFlow.getSTStepsInFlow().getSTStepInFlow());
         this.setAliasToStepNameMap(stFlow.getStStepsInFlow().getSTStepInFlow());
-
+        this.setStepNames();
 
         FlowDefinition flowDefinition = new FlowDefinitionImpl(stFlow.getName(), stFlow.getSTFlowDescription());
 
@@ -142,7 +178,7 @@ public class ConvertSTObjectsToProjectObjects implements ConvertSTAPI {
 
         }
 
-       if (stFlow.getSTFlowLevelAliasing()!= null) {
+       if (stFlow.getSTFlowLevelAliasing()!= null && validateSTFlowLevelAliases(stFlow.getSTFlowLevelAliasing())) {
 
             flowDefinition.SetAliasFlowDefinition(CovnertSTflowlevelalias(flowDefinition, stFlow.getSTFlowLevelAliasing()));
             FlowLevelAliasContainer container = new FlowLevelAliasContainer();
