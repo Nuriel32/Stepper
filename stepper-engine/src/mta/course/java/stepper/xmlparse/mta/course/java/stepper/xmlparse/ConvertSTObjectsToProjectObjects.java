@@ -24,6 +24,7 @@ public class ConvertSTObjectsToProjectObjects implements ConvertSTAPI {
     private Map<String,String> fromalias2stepname = new HashMap<>();
     private String log;
     private Set<String> stepNames;
+    private boolean vaildator = true;
 
 
 
@@ -70,16 +71,7 @@ public class ConvertSTObjectsToProjectObjects implements ConvertSTAPI {
         stepNames.add("Spend Some Time");
     }
 
-    public boolean isValidSTSteps(STStepsInFlow stStepsInFlow) {
-        boolean isValid = true;
-        for (STStepInFlow stStepInFlow : stStepsInFlow.getStStepInFlow()) {
-            if (!stepNames.contains(stStepInFlow.getName())) {
-                isValid = false;
-                log += "Invalid step name found: " + stStepInFlow.getName() + ". This step does not exist in the system.\n";
-            }
-        }
-        return isValid;
-    }
+
 
     public void SetMapSupllier(){
             stepSuppliers = new HashMap<>();
@@ -93,21 +85,7 @@ public class ConvertSTObjectsToProjectObjects implements ConvertSTAPI {
             stepSuppliers.put("Spend Some Time", () -> new SpendSomeTime("Time_To_Spend",true));
         }
 
-    public  boolean validateSTFlowLevelAliases(STFlowLevelAliasing stFlowLevelAliasing) {
-        boolean isValid = true;
 
-        for (STFlowLevelAlias stFlowLevelAlias : stFlowLevelAliasing.getStFlowLevelAlias()) {
-            String stepName = stFlowLevelAlias.getStep();
-            String alias = stFlowLevelAlias.getAlias();
-
-            if (!isAliasInList(stepName, alias) && !stepNames.contains(stepName)) {
-                log += "Invalid step name found in STFlowLevelAlias: " + stepName + ". This step does not exist in the alias mapping or step names.\n";
-                isValid = false;
-            }
-        }
-
-        return isValid;
-    }
 
         /**
          * For each step in flow add to some step his alias name in the aliashelper mapping.
@@ -178,13 +156,16 @@ public class ConvertSTObjectsToProjectObjects implements ConvertSTAPI {
 
         }
 
-       if (stFlow.getSTFlowLevelAliasing()!= null && validateSTFlowLevelAliases(stFlow.getSTFlowLevelAliasing())) {
-
-            flowDefinition.SetAliasFlowDefinition(CovnertSTflowlevelalias(flowDefinition, stFlow.getSTFlowLevelAliasing()));
-            FlowLevelAliasContainer container = new FlowLevelAliasContainer();
-            container.setContainer(flowDefinition.getFlowLevelAlias());
-            container.Unloadcontainer();
-           System.out.println("kaki");
+       if (stFlow.getSTFlowLevelAliasing()!= null) {
+           boolean valid =  validateSTFlowLevelAliases(stFlow.getSTFlowLevelAliasing());
+           this.vaildator = valid;
+           if(!valid) {
+               flowDefinition.SetAliasFlowDefinition(CovnertSTflowlevelalias(flowDefinition, stFlow.getSTFlowLevelAliasing()));
+               FlowLevelAliasContainer container = new FlowLevelAliasContainer();
+               container.setContainer(flowDefinition.getFlowLevelAlias());
+               container.Unloadcontainer();
+               System.out.println("kaki");
+           }
 
         }
 
@@ -304,6 +285,10 @@ public CustomMappingOBJ convertSTCustomMappingToCustomMappingOBJ(FlowDefinition 
 
     return customMappingOBJ;
 }
+    public String getLogs()
+    {
+        return this.log;
+    }
   /** Convert List of STCustomMapping to List<CustomMappingOBJ> **/
         public List<CustomMappingOBJ> convertSTCustomMappingsToCustomMappingOBJs(FlowDefinition flowDefinition,STCustomMappings stCustomMappings) {
             List<CustomMappingOBJ> customMappingOBJs = new ArrayList<>();
@@ -333,6 +318,45 @@ public CustomMappingOBJ convertSTCustomMappingToCustomMappingOBJ(FlowDefinition 
             }
         }
         return null;
+    }
+
+
+    /****** validators *****/
+    public boolean validateSTFlowLevelAliases(STFlowLevelAliasing stFlowLevelAliasing) {
+        boolean isValid = true;
+
+        for (STFlowLevelAlias stFlowLevelAlias : stFlowLevelAliasing.getStFlowLevelAlias()) {
+            String stepName = stFlowLevelAlias.getStep();
+            boolean stepNameFound = false;
+
+            if (stepNames.contains(stepName)) {
+                stepNameFound = true;
+            } else {
+                for (List<String> aliases : aliaserhelper.values()) {
+                    if (aliases.contains(stepName)) {
+                        stepNameFound = true;
+                        break;
+                    }
+                }
+            }
+
+            if (!stepNameFound) {
+                log += "Invalid step name found in STFlowLevelAlias: " + stepName + ". This step does not exist in the step names or alias mapping.\n";
+                isValid = false;
+            }
+        }
+
+        return isValid;
+    }
+    public boolean isValidSTSteps(STStepsInFlow stStepsInFlow) {
+        boolean isValid = true;
+        for (STStepInFlow stStepInFlow : stStepsInFlow.getStStepInFlow()) {
+            if (!stepNames.contains(stStepInFlow.getName())) {
+                isValid = false;
+                log +=   "Invalid step name found: " + stStepInFlow.getName() + ". This step does not exist in the system.\n";
+            }
+        }
+        return isValid;
     }
 }
 
