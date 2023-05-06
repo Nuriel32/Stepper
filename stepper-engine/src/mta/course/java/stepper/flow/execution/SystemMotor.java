@@ -44,16 +44,16 @@ public class SystemMotor {
         //b.func that shows numbered list of flow's free inputs by: serial number| original_name(alias name)| mandatory or optional [user have to enter a number]
         //c.func updating input: user entering value for the chosen input (the func will repeat like that !!(bool)!!till all mandatory inputs received->
         //  then we are offering : to execute (jump to d.)| continue with the inputs updating |0-back to main menu
-        //d.
+        //d.func that runs step by step
 
     }
 
     public void FourthOption(){
         //Displays executions full details
         //a.func that displays to user a list of system's flow executions from most recently to least recently, by:
-        // |serial number |flow's name |UUID of execution |timeStamp (HH:MM:SS)|
-        //  user enter number of execution he wants to get full details about.
-        //b.func that displays to user a list
+        //  |serial number |flow's name |UUID of execution |timeStamp (HH:MM:SS)|
+        //  user enter number of flow execution he wants to get full details about.
+        //b.func that displays to user full flow execution details:
 
     }
 
