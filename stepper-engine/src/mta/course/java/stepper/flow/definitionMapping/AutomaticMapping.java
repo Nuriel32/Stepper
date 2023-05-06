@@ -17,6 +17,7 @@ public class AutomaticMapping extends AbstractMappingDefinition {
         super();
     }
 
+    FlowDefinition flowDefinition;
 
     //this method get flow definition and build ordered list of steps
     public List<StepUsageDeclaration> CreateGoodFlow(FlowDefinition flowDefinition){
