@@ -162,7 +162,7 @@ public class ConvertSTObjectsToProjectObjects implements ConvertSTAPI {
        if (stFlow.getSTFlowLevelAliasing()!= null) {
            boolean valid =  validateSTFlowLevelAliases(stFlow.getSTFlowLevelAliasing());
            this.vaildator = valid;
-           if(!valid) {
+           if(valid) {
                flowDefinition.SetAliasFlowDefinition(CovnertSTflowlevelalias(flowDefinition, stFlow.getSTFlowLevelAliasing()));
                FlowLevelAliasContainer container = new FlowLevelAliasContainer();
                container.setContainer(flowDefinition.getFlowLevelAlias());
