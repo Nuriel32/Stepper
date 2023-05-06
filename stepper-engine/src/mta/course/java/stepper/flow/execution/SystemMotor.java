@@ -50,12 +50,28 @@ public class SystemMotor {
 
     public void FourthOption(){
         //Displays executions full details
+
         //a.func that displays to user a list of system's flow executions from most recently to least recently, by:
         //  |serial number |flow's name |UUID of execution |timeStamp (HH:MM:SS)|
         //  user enter number of flow execution he wants to get full details about.
-        //b.func that displays to user full flow execution details:
 
+        //b.func that displays to user full flow execution details:
+        //1.uuid of flowExecution
+        // 2.flow name
+        // 3.flow's result ( WARNING\ SUCCESS \FAILURE )
+        // 4.flowExecution duration in ms
+        // 5.display list of flow's free inputs with mandatory inputs first, by::
+        //   |final name|type|value|optional OR mandatory|
+        // 6.display list of flow's outputs, by:
+        //   |final name|type|value|
+        //   7.display information about steps took part in this flow, by:
+        //   |step name+ alias if exist|step duration in ms|step result ( WARNING\ SUCCESS \FAILURE )|step summary line|
+        //   |logs that accumulated during the step running (by the order of their creation) by: timeStamp HH:MM:SS.sss, the log's content
     }
+
+
+
+
 
     public void FifthOption(){
         //Executions Statistics
