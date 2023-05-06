@@ -26,4 +26,6 @@ public interface FlowDefinition {
     void SetAutomaticMapping(AutomaticMapping automaticmapping);
    void  SetCustomMappingFlowDefinition(List<CustomMappingOBJ> tosetfor);
     List<CustomMappingOBJ> getCustomMapping();
+    FlowLevelAliasContainer getFlowaliascontainer();
+    void setFlowaliascontainer(FlowLevelAliasContainer flowaliascontainer);
 }

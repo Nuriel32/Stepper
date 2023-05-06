@@ -90,6 +90,14 @@ public class XMLLoader {
 
         return isValid;
     }
+    public boolean validator() throws IOException {
+      boolean validXML = validateXML();
+      if(!validXML){return false;}
+        boolean validstflow = validateSTFlowNames();
+      if(!validstflow){return false;}
+      return true;
+
+    }
     public String getLog() {
         return log;
     }

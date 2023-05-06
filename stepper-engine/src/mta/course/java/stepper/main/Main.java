@@ -17,11 +17,12 @@ import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Unmarshaller;
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 public class Main {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         /*
         FlowDefinition flow1 = new FlowDefinitionImpl("Flow 1", "Hello world");
         flow1.getFlowSteps().add(new StepUsageDeclarationImpl(StepDefinitionRegistry.HELLO_WORLD.getStepDefinition()));
@@ -47,6 +48,7 @@ public class Main {
         List<FlowDefinition>  Flows = new ArrayList<FlowDefinition>();
 */       XMLLoader xmlLoader = new XMLLoader("C:\\Steptocheck\\ex1.xml");
         STStepper stStepper = xmlLoader.load();
+       boolean xmlvalid = xmlLoader.validator();
 
         if (stStepper == null) {
             System.out.println("Failed to load STStepper. Log: \n" + xmlLoader.getLog());

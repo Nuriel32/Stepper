@@ -163,7 +163,8 @@ public class ConvertSTObjectsToProjectObjects implements ConvertSTAPI {
                flowDefinition.SetAliasFlowDefinition(CovnertSTflowlevelalias(flowDefinition, stFlow.getSTFlowLevelAliasing()));
                FlowLevelAliasContainer container = new FlowLevelAliasContainer();
                container.setContainer(flowDefinition.getFlowLevelAlias());
-               container.Unloadcontainer();
+               flowDefinition.setFlowaliascontainer(container);
+               //container.Unloadcontainer();
                System.out.println("kaki");
            }
 

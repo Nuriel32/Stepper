@@ -19,6 +19,15 @@ public class FlowDefinitionImpl implements FlowDefinition {
     List<FlowLevelAlias> FlowLevelAlias;
     AutomaticMapping automaticMapping;
     List<CustomMappingOBJ> CustomMapping;
+    public FlowLevelAliasContainer flowaliascontainer;
+
+    public FlowLevelAliasContainer getFlowaliascontainer() {
+        return flowaliascontainer;
+    }
+
+    public void setFlowaliascontainer(FlowLevelAliasContainer flowaliascontainer) {
+        this.flowaliascontainer = flowaliascontainer;
+    }
 
     public FlowDefinitionImpl(String name, String description) {
         this.name = name;

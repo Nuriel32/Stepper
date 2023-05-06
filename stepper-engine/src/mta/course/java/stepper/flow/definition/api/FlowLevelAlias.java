@@ -8,6 +8,8 @@ public class FlowLevelAlias {
     StepUsageDeclaration stepaliasname;
     DataDefinitionDeclaration source;
     String alias;
+    String logs;
+    boolean valid=true;
 
     public StepUsageDeclaration getStepaliasname() {
         return stepaliasname;
@@ -39,5 +41,31 @@ public class FlowLevelAlias {
     {
        StepDefinition step =  stepaliasname.getStepDefinition();
 
+    }
+
+    public String getLogs() {
+        return logs;
+    }
+
+    public void setLogs(String logs) {
+        this.logs = logs;
+    }
+
+    public boolean isValid() {
+        return valid;
+    }
+
+    public void setValid(boolean valid) {
+        this.valid = valid;
+    }
+
+    public boolean validaliasing()
+    {
+        valid=true;
+        if(source==null) {
+            valid=false;
+            return false;
+        }
+        return true;
     }
 }
